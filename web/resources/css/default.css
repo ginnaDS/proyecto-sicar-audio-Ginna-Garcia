@@ -1,0 +1,28 @@
+body{
+    background: #f1f1f1;
+    margin:0;
+}
+header{
+    height: 30px;
+    width: 100%;
+    background:#444;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+header form{
+    width: 50%;
+    height: 30px;
+    display: flex;
+    justify-content: flex-start;
+}
+header form:last-child{
+    justify-content: flex-end;
+}
+header a {
+    color: white;
+}
+header a:hover {
+    color: white;
+    text-decoration: none;
+}

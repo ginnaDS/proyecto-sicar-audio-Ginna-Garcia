@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!--<h:outputStylesheet library="css" name="default.css"/>-->
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <!--<h:outputStylesheet library="css" name="userIn.css"/>-->
+        <h:outputStylesheet library="css" name="estilo_rol.css"/>
+        <title>Sicar Audio</title>
+        <f:event type="preRenderView" listener="#{sesionController.verificarSesion()}"/>
+    </h:head>
+
+    <h:body id="prin">
+
+
+        <div>
+            <div id="left">
+                <div class="navi">
+                    <ui:insert name="left">
+                        <!--                        <div class="container-fluid display-table">
+                                                    <div class="row display-table-row">
+                                                        <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
+                                                            <h:form>
+                                                            <h:dataTable value="#{registroUsuario.rol.permisoList}">
+                                                                <h:column>
+                                                                    
+                                                                    <ul class="nav">
+                                                                        <center> <p:graphicImage library="imagenes" name="usuario.jpg" style="border-radius: 50%; margin-bottom: 15px;"/>
+                                
+                                                            <h:outputLabel value="#{sesionController.usuarioActivo().nombreUsuario}"/></center>
+                                                                            <br/>
+                                                                        <c:forEach items="#{loginController.rol.permisoList}" var="permiso">
+                                                                        <c:if test="#{empty permiso.permisoPadre and empty permiso.permisoList}">
+                                                                            <li><h:link outcome="#{permiso.url}"><p>#{permiso.nombre}</p></h:link></li>
+                                                                        </c:if>
+                                                                        <c:if test="#{empty permiso.permisoPadre and not empty permiso.permisoList}">
+                                                                            <li class="dropdown"><a class="dropdown" data-togle="dropdown" href="#{permiso.url}">
+                                                                                    <p>#{permiso.nombre}</p></a>
+                                                                                <ul class="dropdown-menu">
+                                                                                    <c:forEach items="#{permiso.permisoList}" var="subitem">
+                                                                                        <c:forEach items="#{loginController.rol.permisoList}" var="p">
+                                                                                            <c:if test="#{subitem.equals(p)}">
+                                                                                                <li>
+                                                                                                    <h:link outcome="#{subitem.url}" style="color: #065162">
+                                                                                                        <p>#{subitem.nombre}</p>
+                                                                                                    </h:link>
+                                                                                                </li>
+                                                                                            </c:if>
+                                                                                        </c:forEach>
+                                                                                    </c:forEach>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                    </ul>-->
+                        <!--</h:column>-->
+                        <!--                        <div class="container-fluid display-table">
+                                                    <div class="row display-table-row">
+                                                        <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
+                                                            <h:form>
+                                                            <h:dataTable value="#{registroUsuario.rol.permisoList}">
+                                                                <h:column>
+                                                                    
+                                                                    <ul class="nav">
+                                                                        <center> <p:graphicImage library="imagenes" name="usuario.jpg" style="border-radius: 50%; margin-bottom: 15px;"/>
+                                
+                                                            <h:outputLabel value="#{sesionController.usuarioActivo().nombreUsuario}"/></center>
+                                                                            <br/>
+                                                                        <c:forEach items="#{loginController.rol.permisoList}" var="permiso">
+                                                                        <c:if test="#{empty permiso.permisoPadre and empty permiso.permisoList}">
+                                                                            <li><h:link outcome="#{permiso.url}"><p>#{permiso.nombre}</p></h:link></li>
+                                                                        </c:if>
+                                                                        <c:if test="#{empty permiso.permisoPadre and not empty permiso.permisoList}">
+                                                                            <li class="dropdown"><a class="dropdown" data-togle="dropdown" href="#{permiso.url}">
+                                                                                    <p>#{permiso.nombre}</p></a>
+                                                                                <ul class="dropdown-menu">
+                                                                                    <c:forEach items="#{permiso.permisoList}" var="subitem">
+                                                                                        <c:forEach items="#{loginController.rol.permisoList}" var="p">
+                                                                                            <c:if test="#{subitem.equals(p)}">
+                                                                                                <li>
+                                                                                                    <h:link outcome="#{subitem.url}" style="color: #065162">
+                                                                                                        <p>#{subitem.nombre}</p>
+                                                                                                    </h:link>
+                                                                                                </li>
+                                                                                            </c:if>
+                                                                                        </c:forEach>
+                                                                                    </c:forEach>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                    </ul>
+                                                                </h:column>
+                                                            </h:dataTable>
+                                                            </h:form>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+
+                        <div class="container-fluid display-table">
+                            <div class="row display-table-row">
+                                <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
+                                    <h:form>
+
+                                        <center> <p:graphicImage library="imagenes" name="usuario.jpg" style="border-radius: 50%; margin-bottom: 15px;"/>
+
+                                            <h:outputLabel value="#{sesionController.usuarioActivo().nombreUsuario}"/></center>
+                                        <br/>
+
+                                        <ul>
+                                            <c:forEach items="#{menuController.listarPermisos()}" var="p">
+                                                <c:if test="#{empty p.permisoPadre}">
+                                                    <li class="dropdown">
+                                                        <a class="dropdown-toggle" data-togle="dropdown" href="#{p.url}">#{p.nombre}</a>
+                                                        <ul class="dropdown-menu">
+                                                            <c:forEach items="#{p.permisoList}" var="sp">
+                                                                <c:forEach items="#{menuController.listarPermisos()}" var="p1">
+                                                                    <c:if test="#{p1.idPermiso eq sp.idPermiso}">
+                                                                        <li ><a >#{sp.nombre}</a></li>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                            </c:forEach>
+                                                        </ul>
+                                                    </li>
+                                                </c:if>
+                                            </c:forEach>
+                                        </ul>
+                                        <h:commandLink actionListener="#{loginController.cerrarSesion()}" value="Cerrar Sesion" action="index"/>
+
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </ui:insert>
+                </div>
+            </div> 
+            <div id="top">
+                <ui:insert name="top">
+                    <!--<f:facet name="option">
+                       ESTO ES UNA SESION DEL NAVBAR 
+                    </f:facet>-->
+
+
+
+                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+
+
+                                <!-- <div id="actualizar" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                     <div class="modal-dialog modal-lg" role="document">
+                                         <div class="modal-content">
+                                             <div class="modal-header">
+                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                 <h4 class="modal-title"> Actualizar Datos</h4>
+                                             </div>
+                                             <div class="modal-content" >-->
+                                <p:tabView id="allDates">
+                                    <p:tab title="Datos de usuario">
+                                        <h:form>
+                                            <p:growl autoUpdate="true" showDetail="true"/>
+                                            <h:panelGrid columns="3">
+                                                <!--<h:graphicImage library="producto" name="#{producto.getImagenUrl}"/> en esta linea se llama la carpeta productos donde se pondrann img para que el user sel del catalogo-->
+                                                <p:outputLabel value="Primer Nombre"/>
+                                                <p:inputText id="primerNombre" value="#{sesionController.usuario.primerNombre}" onkeypress="return sololetras(event)" required="true" requiredMessage="Error"/>
+                                                <p:message for="primerNombre"/>
+
+                                                <p:outputLabel value="Segundo Nombre"/>
+                                                <p:inputText id="segundoNombre" value="#{sesionController.usuario.segundoNombre}" onkeypress="return sololetras(event)"/>
+                                                <h:column/>
+
+                                                <p:outputLabel value="Primer Apellido"/>
+                                                <p:inputText id="primerApellido" value="#{sesionController.usuario.primerApellido}" onkeypress="return sololetras(event)" required="true" requiredMessage="Error"/>
+                                                <p:message for="primerApellido"/>
+
+                                                <p:outputLabel value="Segundo Apellido"/>
+                                                <p:inputText id="segundoApellido" value="#{sesionController.usuario.segundoApellido}" onkeypress="return sololetras(event)"/>
+                                                <h:column/>
+
+                                                <p:outputLabel value="Correo"/>
+                                                <p:inputText id="correo" value="#{sesionController.usuario.correo}" required="true" requiredMessage="Error"/>
+                                                <p:message for="correo"/>
+
+                                                <p:outputLabel value="Telefono"/>
+                                                <p:inputText id="telefono" value="#{sesionController.usuario.telefono}" onkeypress="return solonumeros(event)" required="true"/>
+                                                <p:message for="telefono"/> 
+
+                                                <p:outputLabel value="CC"/>
+                                                <p:outputLabel id="cc" value="#{sesionController.usuario.cc}"/>
+                                                <p:message for="cc"/> 
+
+                                                <p:outputLabel value="Nombre Usuario" />
+                                                <p:inputText id="nombreUsuario" value="#{sesionController.usuario.nombreUsuario}" required="true"/>
+                                                <p:message for="nombreUsuario"/> 
+
+
+                                            </h:panelGrid>
+
+                                            <p:commandButton id="btn-guardar" value="Guardar cambios" actionListener="#{sesionController.guardarCambios()}" ajax="false"/>
+
+                                        </h:form>
+                                    </p:tab>
+                                </p:tabView>
+
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" style="; " data-toggle="modal" data-target=".bs-example-modal-lg">Actualizar datos</button>
+
+                </ui:insert>
+            </div>
+            <div id="content" class="left_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+        </div>
+
+        <h:outputScript library="js" name="bootstrap.min.js"/>  
+        <h:outputScript library="js" name="validar.js"/>
+    </h:body>
+
+</html>

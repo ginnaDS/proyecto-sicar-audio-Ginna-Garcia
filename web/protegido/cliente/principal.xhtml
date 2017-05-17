@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
+
+            <ui:define name="content">
+                
+             
+                
+                <h:form>
+                  <p:galleria value="#{imagesView.images}" var="images" panelWidth="500" panelHeight="313" showCaption="true">
+                      <img src="#{request.contextPath}/resources/imagenes/catalogo/#{images}" alt=""/>
+</p:galleria>
+                </h:form>
+              <p:graphicImage name="catalogo1" alt="Image Description for #{images}" title="#{images}" library="/resources/imagenes/catalogo"/>
+                <img src="../../resources/imagenes/catalogo/diseño1.jpg" alt=""/>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

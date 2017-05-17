@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <head>
+
+    </head>
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
+
+            <ui:define name="content">
+                <center><h3>Registra tu pedido</h3></center>
+                <br/>
+                <center><h:panelGrid columns="1">
+                        <h:form id="fecha">
+                            <p:calendar id="fechaE" value="#{pedidoController.fecha}" mindate="Date" maxdate="Date+15" required="true" requiredMessage="requerido" disabled="#{pedidoController.bloqueo}" />
+                            <p:commandButton value="Seleccionar Productos" onclick="PF('dlg').show();" 
+                                             actionListener="#{pedidoController.inactivo()}" disabled="#{pedidoController.bloqueo}" 
+                                             update=":otrosdatos" id="btn" process="fechaE"/>
+
+
+                        </h:form>
+                        <h:panelGroup id="otrosdatos">
+                            <h:form id="forOtrosDatos" rendered="#{not empty pedidoController.fecha}">
+                                <h:panelGrid columns="1"  >
+                                    <h:outputLabel value="Fecha de entrega:  "/>
+
+
+                                    <h:outputLabel value="Producto"/>
+                                    <h:selectOneMenu value="#{pedidoController.producto.idProducto}">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
+                                        <f:selectItems value="#{pedidoController.productos}" var="producto" itemLabel="#{producto.nombre}_#{producto.marca}" itemValue="#{producto.idProducto}" />
+                                    </h:selectOneMenu>
+
+
+                                    <h:outputLabel value="Cantidad"/>
+                                    <p:inputText maxlength="1" value="#{pedidoController.detallePedido.cantidadProducto}" onkeypress="return solonumeros(event)" required="true"/>
+
+                                    <h:outputLabel value="Descripcion"/>
+                                    <p:inputTextarea value="#{pedidoController.detallePedido.descripcion}"/>
+
+
+                                    <p:commandLink value="añadir" actionListener="#{pedidoController.registrar()}" update=":listaDet"/>
+
+                                </h:panelGrid>
+                                <p:commandButton value="Guardar" actionListener="#{pedidoController.registrarPedido()}"/>
+
+                            </h:form>
+                            <f:view>
+
+
+                                <h:form id="listaDet"  rendered="#{not empty pedidoController.fecha}">
+                                    <h1><h:outputText value="List"/></h1>
+                                    <h:dataTable value="#{pedidoController.detallespedido}" var="item">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="IdDetPedido"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.idDetPedido}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="CantidadProducto"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.cantidadProducto}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Descripcion"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.descripcion}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="PrecioProducto"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.precioProducto}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="IdProducto"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.idProducto.nombre}"/>
+                                        </h:column>
+                                    </h:dataTable>
+                                </h:form>
+                            </f:view>
+
+                        </h:panelGroup>
+                    </h:panelGrid>
+
+
+
+                </center>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

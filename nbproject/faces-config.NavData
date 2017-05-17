@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="protegido/superadmin/listarusuario.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="protegido/cliente/graficos.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="protegido/cliente/Citas.xhtml" x="352" y="157" zoom="true"/>
+        <Node id="protegido/administrador/asignaciones.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="protegido/administrador/registrartecnico.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="protegido/tecnico/principal.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="protegido/cliente/prefacturas.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="protegido/administrador/productos.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="protegido/superadmin/principal.xhtml" x="72" y="82" zoom="true"/>
+        <Node id="permiso.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="protegido/tecnico/graficocliente.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="protegido/administrador/pedidore.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="protegido/cliente/principal.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="index.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="protegido/cliente/vehiculo.xhtml" x="614" y="64" zoom="true"/>
+        <Node id="protegido/administrador/listar.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="protegido/administrador/evento.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="protegido/tecnico/resultado.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="protegido/cliente/pedido.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="protegido/administrador/principal.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="protegido/administrador/pedidorealizado.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="protegido/tecnico/citas.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="protegido/superadmin/registraradmin.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="Registrar.xhtml" x="400" y="750" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

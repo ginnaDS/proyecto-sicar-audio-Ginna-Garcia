@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pi="http://xmlns.jcp.org/jsf/passthrough">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
+
+           
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form enctype="multipart/form-data"  pi:method="post">
+                        <h1><h:outputText value="Agregar productos"/></h1>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Numero de referencia:" for="nroReferencia" />
+                            <p:inputText id="nroReferencia" value="#{productosController.producto.nroReferencia}" title="NroReferencia" required="true"/>
+                            <p:outputLabel value="Marca:" for="marca" />
+                            <p:inputText id="marca" value="#{productosController.producto.marca}" title="Marca" required="true"/>
+                            <p:outputLabel value="Cantidad:" for="cantidad" />
+                            <p:inputText id="cantidad" value="#{productosController.producto.cantidad}" maxlength="3" onkeypress="return solonumeros(event)" title="Cantidad" required="true"/>
+                            <p:outputLabel value="Nombre:" for="nombre" />
+                            <p:inputText id="nombre" value="#{productosController.producto.nombre}" onkeypress="return sololetras(event)" title="Nombre" required="true"/>
+                            <p:outputLabel value="Precio: " for="precioProducto"/>
+                            <p:inputText id="precioProducto" value="#{productosController.producto.precio}" maxlength="6" onkeypress="return solonumeros(event)" title="Precio" required="true"/>
+                            <h:outputLabel value="Imagen" for="imagen"/>
+                            <h:inputFile value="#{imagen}" id="imagen" title="sube una foto del producto"/>
+                        </h:panelGrid>
+                        <p:commandButton value="Agregar" actionListener="#{productosController.registrarProducto(imagen)}"/>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

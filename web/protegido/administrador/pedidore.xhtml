@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
+
+            <ui:define name="content">
+
+                <center><h:form id="Acct">
+                        <h1><h:outputText value="Compras realizadas"/></h1>
+                        <p:dataTable class="tbl" value="#{pedController.listaPedidos()}" var="item" paginator="true" rows="6" >
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Codigo"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idPedido}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Fecha"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fecha}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Cliente"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCliente.idUsuario.primerNombre} #{item.idCliente.idUsuario.primerApellido}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Estado"/>
+                                </f:facet>
+                                <p:commandButton onclick="PF('cambiar').show()" update=":Act" actionListener="#{pedController.cambiarEs(item)}"/>
+                          </p:column>
+                        </p:dataTable>
+                    </h:form></center>
+                    
+                    <p:dialog widgetVar="cambiar">
+
+
+                        <h:form id="Act">
+                            <p:panelGrid columns="2">
+                                <h:outputLabel value="Codigo:"/>
+                                <p:outputLabel value="#{pedController.pedido.idPedido}"/>
+                                <h:outputLabel value="Fecha:"/>
+                                <p:outputLabel value="#{pedController.pedido.fecha}"/>
+                                    
+                                <h:outputLabel value="Cliente:"/>
+                                <p:outputLabel value="#{pedController.pedido.idCliente}"/>
+                                    
+                                <h:outputLabel value="Estado:" for="idEstadoPe" />
+                                <p:selectOneMenu id="idEstadoPe" value="#{pedController.pedido.idEstadoPe}" required="true" requiredMessage="The IdEstadoPe field is required.">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
+                                    <f:selectItems value="#{pedController.estados}" var="est" itemLabel="#{est.tipoEstadoP}" itemValue="#{user.idUsuario}"/>
+                            
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                            <p:commandButton value="Guardar Cambios" actionListener="#{pedController.actualizar()}" update=":Acct"/>
+                        </h:form>
+
+                    </p:dialog> 
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>
