@@ -13,15 +13,154 @@
                 
              
                 
-                <h:form>
-                  <p:galleria value="#{imagesView.images}" var="images" panelWidth="500" panelHeight="313" showCaption="true">
-                      <img src="#{request.contextPath}/resources/imagenes/catalogo/#{images}" alt=""/>
-</p:galleria>
-                </h:form>
-              <p:graphicImage name="catalogo1" alt="Image Description for #{images}" title="#{images}" library="/resources/imagenes/catalogo"/>
-                <img src="../../resources/imagenes/catalogo/diseño1.jpg" alt=""/>
-            </ui:define>
+              <div class=" tab-content tab-pane text-style   " id="tabCatalogo" >
+                         <h2>Catalogo</h2>
+                         <a data-target="#carCatNR" data-slide-to="0" class=" btn btn-default " >Altavoces</a>
+                         <a data-target="#carCatNR" data-slide-to="1" class="btn btn-default">Radios</a>
+                          <a data-target="#carCatNR" data-slide-to="2" class="btn btn-default">Amplificadores</a>
+                    <ol class="breadcrumb migaR" >
+                      <li><a href="#tabInicio" data-toggle="tab" aria-hidden="true">Inicio</a></li>
+                    
+                      <li class="active"  ><a href="#">Catalogo</a></li>
+                    </ol>
+      
 
+                         <hr/>
+
+                              <div id="carCatNR" class="carousel slide vertical" data-ride="carousel">
+                           <div class="carousel-inner" role="listbox">
+                                  <div class="item active">
+                                   <div class="col-md-4" style="    margin-bottom: 16px;">
+                            <img src= "../../resources/catalogo/catalogo1.jpg" id="ImgFb1" />
+                                 <h2>Altavoz Sony XS-FB1630</h2>
+                               
+                                  <p>Tamaño: 16cm&nbsp;&nbsp;6,5 pulgadas</p>
+                                  <p>Potencia Máxima: 270 W &nbsp;&nbsp; Potencia Nominal: 40 W</p>
+                                  <p>Material: Paño &nbsp;&nbsp;recubierto de goma</p>
+                                  <p>Material Imán: &nbsp;&nbsp;Ferrita</p> 
+                                  <p>Tweeter Diámetro:&nbsp;&nbsp; 35mm</p> 
+                                  <p>Precio $ 130.000</p>
+
+                                </div>
+
+                                  <div class="col-md-4">
+                            <img src="../../resources/catalogo/catalogo2.jpg" id= "Imgjbl"/>
+                                 <h2>Altavoz Sony XS-FB1030</h2>
+                              
+                                  <p>Tamaño: 10cm&nbsp;&nbsp;4.0 pulgadas</p>
+                                  <p>Potencia Máxima: 220W &nbsp;&nbsp; Potencia Nominal: 30 W</p>
+                                  <p>Material:&nbsp;&nbsp; Paño recubierto de goma</p>
+                                  <p>Material Imán: &nbsp;&nbsp;Ferrita</p> 
+                                  <p>Tweeter Diámetro:&nbsp;&nbsp;25mm&nbsp;&nbsp;&nbsp;&nbsp;Peso: 390 g </p>
+                                  <p>Precio $ 90.000</p>
+                         </div>
+                          <div class="col-md-4">
+                         <img src="../../resources/catalogo/catalogo3.jpg" id= "Imgjbl"/>
+                           <h2>Altavoz Sony XS-FB1030 </h2>
+                                  <p>Tamaño: 10cm&nbsp;&nbsp;4.0 pulgadas</p>
+                                  <p>Potencia Máxima: 220W &nbsp;&nbsp; Potencia Nominal: 30 W</p>
+                                  <p>Material:&nbsp;&nbsp; Paño recubierto de goma</p>
+                                  <p>Material Imán: &nbsp;&nbsp;Ferrita</p> 
+                                  <p>Tweeter Diámetro:&nbsp;&nbsp;25mm&nbsp;&nbsp;&nbsp;&nbsp;Peso: 390 g </p>
+                                  <p>Precio $ 90.000</p>
+                        </div>
+                                    
+                                  </div>
+                        <!--Radios-->
+                        <div class="item">
+                                    
+                        <div class="col-md-4" style="margin-bottom: -15px;">
+                          <img src= "../../resources/catalogo/catalogo4.jpg" class="CatAmp" style=" margin-bottom: 18px;" />
+                                 <h2> Radio Kenwood KDC_MP262U</h2>
+                                <p>Nueva linea de receptores de audio</p>
+                                <p>soportan AOA2(Protocolo Android Open Accessory version 2).</p>
+                                <p>Solo instale la aplicacion Kenwood Music Player en un telefono inteligente Android,</p>
+                                <p>conectelo mediante USB, y controle directamente su musica desde el receptor de audio del vehiculo. </p>
+                                <p> Precio $430.000</p>
+                          </div>
+
+
+                           <div class="col-md-4">
+                           <img src="../../resources/catalogo/catalogo5.jpg" class="CatAmp"/>
+                                 <h2> Radio Kenwood DDX7015 BT</h2>
+                              
+                                   <p> Pantalla tactil 7.0 VGAdB  Panel autodeslizante </p>
+                                  <p> Bluetooth manos libres y Audio Streaming incorporados </p>
+                                  <p>Reproduccion MP3/WMA/AAC/WAV/FLAC</p>
+                                  <p> Ecualizador grafico 7 bandas</p> 
+                                  <p> Entradas HDMI/MHL, 2AV-in, 1AV-out, 1 camara trasera </p>
+                                  <p>Precio $400.000</p>
+
+                               
+                         </div>
+
+                          <div class="col-md-4">
+                        <img src="../../resources/catalogo/catalogo6.jpg" class="CatAmp" style="margin-bottom: 50px;"/>
+                           <h2> RADIO Kenwood DDX-415BT</h2>
+                                 <p>MONITOR DE 6.2 PANEL TACTIL</p> 
+                                   <p>USB-I POD-IPHONE Bluetooth</p>
+                                   <p>MP3-WMA-DVD 50 WATTS X 4 22RMS</p>
+                                   <p>3 Presalidas de 4,0V USB-I POD-IPHONE</p>
+                                   <p>Precio $900.000</p>
+                                   
+                                      
+                                  </div>
+                        <!--Amplificadores-->
+
+                        <div class="item">
+                                    
+                        <div class="col-md-4" style="margin-bottom: -15px;">
+                          <img src= "../../resources/catalogo/catalogo7.jpg" class="CatAmp" style=" margin-top: -25px; margin-bottom: -50px;"/>
+                                 <h2> Amplificador Quantum QA4300</h2>
+                                <p>4 Ohms @ 14.4 VOLTS: 4 X 300 Watts</p>
+                                <p>4 Ohms BRIDGED: 2 X 1200 Watts</p>
+                                <p>2 Ohms @ 14.4 VOLTS: 4 X 600 Watts</p>
+                                <p>CAPABILITY: 2 Ohms Stereo. </p>
+                                <p>Precio $ 520.000</p>
+                          </div>
+
+
+                           <div class="col-md-4">
+                           <img src="../../resources/catalogo/catalogo8.jpg" class="CatAmp" style="margin-bottom: -5px;"/>
+                                 <h2> Amplificador Sony Xplod 800W XM-GTR4A</h2>
+                              
+                                   <p> Amplificador de 4 canales Sony Xplod </p>
+                                  <p> Potencia máxima: 800W </p>
+                                  <p>Potencia de salida nominal a 4Ω: 60Wx2 + 125Wx2</p>
+                                  <p>Potencia de salida de nominal a 2Ω: 80Wx2 + 170Wx2</p> 
+                                  <p>Disfruta de tonos graves profundos con un filtro de paso bajo Tonos agudos altos con un filtro de paso alto</p>
+                                  <p>Precio $ 545.000</p>
+
+                               
+                         </div>
+
+                          <div class="col-md-4">
+                        <img src="../imagenes/Kenwo.png" class="CatAmp" style="margin-bottom: 50px;"/>
+                           <h2> RADIO Kenwood DDX-415BT</h2>
+                                 <p>MONITOR DE 6.2 PANEL TACTIL</p> 
+                                   <p>USB-I POD-IPHONE Bluetooth</p>
+                                   <p>MP3-WMA-DVD 50 WATTS X 4 22RMS</p>
+                                   <p>3 Presalidas de 4,0V USB-I POD-IPHONE</p>
+                                   <p>Precio $900.000</p>
+                                 
+                        </div>
+                                      
+                                  </div>
+                               
+                                </div>
+
+                              </div>
+                              <div class="visible-xs" align="center">
+                              <hr/>
+                         <a href="#" class="btn btn-default" >Volver</a>
+                         <a href="#tabCitas" data-toggle="tab" class="btn btn-default">Realizar pedido</a>
+                         </div>
+                         
+
+                      
+                      </div>
+              </div>
+            </ui:define>
         </ui:composition>
 
     </body>
