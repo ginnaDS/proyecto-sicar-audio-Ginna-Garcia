@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>  
+        <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
+
+            <ui:define name="content">
+                 <f:view>
+                <ol class="breadcrumb migaR" >
+                      <li><a href="principal.xhtml" data-toggle="tab" aria-hidden="true">Inicio</a></li>
+                    
+                      <li class="active"><a href="progen.xhtml">Productos</a></li>
+                    </ol>
+                </f:view>
+                
+                <a href="productos.xhtml"><button type="button" class="btn btn-primary btn-lg btn-block">Registrar productos</button></a>
+                <br/>
+                <a href="listar.xhtml"><button type="button" class="btn btn-primary btn-lg btn-block">Lista productos</button></a>
+                <br/>
+                <a href="proedit.xhtml"><button type="button" class="btn btn-primary btn-lg btn-block">Modificar información de los productos</button></a>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

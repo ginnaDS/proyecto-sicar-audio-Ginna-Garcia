@@ -20,6 +20,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -127,17 +128,14 @@ public class AsignacionController implements Serializable{
   }
   
   public void asignarTecnico(Cita item){
+      RequestContext context = RequestContext.getCurrentInstance();
       try {
-          System.out.println("aaaa");
          citaLocal.edit(cita);
-          System.out.println("editar");
          emailfl.envNotfCita(cita, usua);
-          System.out.println("enviar");
-      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Aviso")
-                    , rb.getString("ElTecnico")+cita.getIdUsuario().getNombreUsuario()+("FueAsignadoExitosamente"))); 
+         context.execute("swal('El tecnico'"+cita.getIdUsuario().getNombreUsuario()+",'Fue asignado exitosamente','success')");
+      
       } catch (Exception e) {
-      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Error")
-                    , ("ErrorDeAsignacion")));
+      context.execute("swal('Lo sentimos','No se ha podido asignar','error')");
       }
   }
 }

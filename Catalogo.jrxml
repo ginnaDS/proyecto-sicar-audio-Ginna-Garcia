@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5cb6e2a8-33af-4b20-aa0e-c5dfad0a9482">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="108" y="0" width="453" height="79" isRemoveLineWhenBlank="true" forecolor="#000099" backcolor="#CCCCCC" uuid="9edd64ec-df7e-4720-b399-a51dbfe24d7e"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Catalogo Milenium Audio]]></text>
+			</staticText>
+			<image>
+				<reportElement x="11" y="9" width="67" height="70" uuid="8cc6ed71-6a0b-47c9-a708-7fbfea2b6fdc"/>
+				<imageExpression><![CDATA["C:\\Users\\ginna\\Desktop\\proyecto\\versiones\\v5sicaraudio\\web\\resources\\imagenes\\logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="153" splitType="Stretch">
+			<image>
+				<reportElement x="23" y="0" width="162" height="153" uuid="8ad6b60d-d2fb-4735-9e16-d812e9746a71"/>
+				<imageExpression><![CDATA[$F{imagen}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="208" y="10" width="100" height="20" uuid="e153b145-251a-46d2-98af-a8e1bd2da047"/>
+				<text><![CDATA[Num. Referencia]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="346" y="10" width="100" height="20" uuid="b69fd0e5-eb9b-4d5f-8e73-196a5f91c9ff"/>
+				<textFieldExpression><![CDATA[$F{nroReferencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="346" y="45" width="100" height="20" uuid="23345d8f-bc84-41a5-abf0-28ba5c3a8fae"/>
+				<textFieldExpression><![CDATA[$F{marca}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="208" y="45" width="100" height="20" uuid="eea1b3b0-7ee6-4935-afe8-d8966d033ac3"/>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="346" y="77" width="100" height="20" uuid="1b5e1c4d-b616-4775-b1b4-0baa82c10f14"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="208" y="77" width="100" height="20" uuid="80711a79-4005-487f-96e5-cbadbd49c44b"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="113" width="100" height="20" uuid="04a9535a-7afe-446e-b8c1-40f88d993ccb"/>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="346" y="113" width="100" height="20" uuid="7376902d-07da-4ebb-88f3-e1192d455dc7"/>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="52" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="8" y="32" width="100" height="20" uuid="2510d98b-4ab0-417e-bbd6-6707666a3b0b"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="226" y="22" width="100" height="20" uuid="1de7e92b-b1f0-49f4-94ea-b0972ba2c209"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

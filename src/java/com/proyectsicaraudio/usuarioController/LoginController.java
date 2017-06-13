@@ -9,6 +9,7 @@ import com.proyectsicaraudio.EJB.RolFacadeLocal;
 import com.proyectsicaraudio.EJB.UsuarioFacadeLocal;
 import com.proyectsicaraudio.model.Rol;
 import com.proyectsicaraudio.model.Usuario;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
@@ -18,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -67,6 +69,7 @@ public class LoginController implements Serializable{
     }
     public String iniciarSesion(){
         Usuario user;
+        String contrasenia;
          String Redireccion=null;
          try {
              user = usuarioLocal.iniciarSesion(usuario);
@@ -75,20 +78,36 @@ public class LoginController implements Serializable{
               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("us", user);
               Redireccion="/protegido/"+user.getIdRol().getTipoRol()+"/principal?faces-redirect=true";
              }else{
-                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Aviso"),
-                         ("UsuarioOContraseñaIncorrectos")));
+                RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("swal('Error!','Usuario o contraseña incorrecta','warning')");
               
              }
          } catch (Exception e) {
+             try{
+                 for (int i = 0; i < 5; i++) {
+                     if (i==0) {
+                       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Por favor","ingrese su contraseña"));
+                     }
+                     if (i==5) {
+                       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"",""));
+                }
+                 }
+                     
+                 }
+             catch (Exception ex){
+                 
+             }
              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Aviso"),("Error ")+e.getMessage()));
-         }
+    }
+    
            return Redireccion;
     }
     
-    public  String cerrarSesion(){
+    public  void cerrarSesion() throws IOException{
          usuario= null;
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/faces/index.xhtml";
+        FacesContext.getCurrentInstance().getExternalContext().redirect("./../../index.xhtml");
+//        return "/faces/index.xhtml";
          
     }
     

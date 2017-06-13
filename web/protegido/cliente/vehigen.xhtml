@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+                <ol class="breadcrumb migaR" >
+                      <li><a href="principal.xhtml" data-toggle="tab" aria-hidden="true">Inicio</a></li>
+                    
+                      <li class="active"><a href="#">Vehiculos</a></li>
+                    </ol>
+                </f:view>
+<!--                
+                <a href="vehiculo.xhtml"><button type="button" class="btn btn-primary btn-lg btn-block">Registrar vehiculo</button></a>
+                <br/>
+                <a href="misvh.xhtml"><button type="button" class="btn btn-primary btn-lg btn-block">Mis vehiculos</button></a>
+                <br/>
+                <a href="modvh.xhtml"><button type="button" class="btn btn-primary btn-lg btn-block">Modificar información vehiculos</button></a>
+            -->
+            <!--tab en bootstrap-->
+            <f:view>
+                <p:tabView dynamic="true" cache="true" class="tb">
+        <p:tab title="Registrar Vehiculo">
+            <h:panelGrid columns="2" cellpadding="10">
+            <h:form>
+                        <h:panelGrid columns="2">
+                            <div class="form-group">
+                                <label for="modelo" class="control-label col-xs-2">Modelo</label>
+                                <div class="col-xs-6">
+                                    <h:inputText class="form-control" id="modelo" value="#{vehiculoController.carro.modelo}" required="true"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="marca" class="control-label col-xs-2">Marca</label>
+                                <div class="col-xs-6">
+                                    <h:selectOneMenu class="form-control" id="marca" value="#{vehiculoController.marca.idMarca}" required="true">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
+                                        <f:selectItems value="#{vehiculoController.marcas}" var="mc" itemLabel="#{mc.marca}" itemValue="#{mc.idMarca}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="placa" class="control-label col-xs-2">Placa</label>
+                                <div class="col-xs-6">
+                                    <h:inputText class="form-control" onkeypress="return placa(event)" id="placa" value="#{vehiculoController.carro.placa}" maxlength="6" required="true"/>
+                                </div>
+                            </div>                        
+                        </h:panelGrid>
+                        <p:commandButton actionListener="#{vehiculoController.registrarVehiculo()}" value="Regitrar"/>
+
+             </h:form>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Mis vehiculos">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:form>
+                        <h1><h:outputText value="Mis vehiculos"/></h1>
+                        <p:dataTable value="#{vehiculoController.carros}" var="item">
+                            
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Modelo"/>
+                                </f:facet>
+                                <h:outputText value="#{item.modelo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Marca"/>
+                                </f:facet>
+                                <h:outputText value="#{item.marca}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Placa"/>
+                                </f:facet>
+                                <h:outputText value="#{item.placa}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Godfather Part III">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:graphicImage name="demo/images/godfather/godfather3.jpg" />
+                <h:outputText value="After a break of more than 15 years..." />
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+            </f:view>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

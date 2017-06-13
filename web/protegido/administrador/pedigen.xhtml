@@ -2,8 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 
     <body>
@@ -11,10 +11,18 @@
         <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
 
             <ui:define name="content">
-                <center> <h:form id="form">
+                <f:view>
+                <ol class="breadcrumb migaR" >
+                      <li><a href="principal.xhtml" data-toggle="tab" aria-hidden="true">Inicio</a></li>
+                    
+                      <li class="active"><a href="pedigen.xhtml">Pedidos</a></li>
+                    </ol>
+                </f:view>
+                
+                     <center> <h:form id="form">
                     <center><h1><h:outputText value="Cambiar estado de los pedidos"/> </h1></center>
                     
-                    <p:dataTable class="tbl" value="#{pedController.pedidos}" paginator="true" rendered="true" var="ped"  rows="7">
+                    <p:dataTable class="tbl" value="#{pedController.pedidos}" paginator="true" rendered="true" var="ped"  rows="5">
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Codigo Pedido"/>
@@ -25,7 +33,9 @@
                             <f:facet name="header">
                                 <h:outputText value="Fecha de Solicitud"/>
                             </f:facet>
-                            <h:outputText value="#{ped.fecha}"/>
+                            <h:outputText value="#{ped.fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -64,7 +74,7 @@
                         <p:commandButton value="Guardar Cambios" actionListener="#{pedController.actualizar()}" update=":form"/>
                     </h:form>
                 </p:dialog>
-            </ui:define>
+               </ui:define>
 
         </ui:composition>
 

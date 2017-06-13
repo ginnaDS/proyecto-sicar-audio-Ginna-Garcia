@@ -84,7 +84,7 @@ public class ListInsController implements Serializable{
     public Estadocita getEstCit() {
         return estCit;
     }
-
+//clases relacional casos de uso
     public void setEstCit(Estadocita estCit) {
         this.estCit = estCit;
     }
@@ -103,7 +103,7 @@ public class ListInsController implements Serializable{
        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Aviso"),
             ("CambiosGuardados")));
        } catch (Exception e) {
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Error"),
+       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Error"),
             ("CambiosNoGuardados")));
        }
        

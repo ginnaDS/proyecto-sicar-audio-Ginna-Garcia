@@ -150,5 +150,5 @@ public class Detallespedido implements Serializable {
     public String toString() {
         return "com.proyectsicaraudio.model.Detallespedido[ idDetPedido=" + idDetPedido + " ]";
     }
-    
+
 }

@@ -6,8 +6,10 @@
 package com.proyectsicaraudio.PedidoController;
 
 import com.proyectsicaraudio.EJB.EstadoProductoFacadeLocal;
+import com.proyectsicaraudio.EJB.MarcaProductoFacadeLocal;
 import com.proyectsicaraudio.EJB.ProductoFacadeLocal;
 import com.proyectsicaraudio.model.EstadoProducto;
+import com.proyectsicaraudio.model.MarcaProducto;
 import com.proyectsicaraudio.model.Producto;
 import com.proyectsicaraudio.usuarioController.SubirArchivos;
 import java.io.Serializable;
@@ -21,6 +23,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -34,20 +37,42 @@ public class productosController implements Serializable {
     private ProductoFacadeLocal productoLocal;
     @EJB
     private EstadoProductoFacadeLocal estLocal;
+    @EJB
+    private MarcaProductoFacadeLocal marcaEjb;
     @Inject
     private Producto producto;
     private List<Producto> productos;
     @Inject
     private EstadoProducto est;
-
+    @Inject
+    private MarcaProducto marca;
+    private List<MarcaProducto> marcas;
+    
     private FacesContext facesContext;
     private ResourceBundle rb;
     
     @PostConstruct
     public void init() {
+        marcas = marcaEjb.findAll();
         productos = productoLocal.findAll();
         facesContext = FacesContext.getCurrentInstance();
         rb =facesContext.getApplication().getResourceBundle(facesContext, "msjPed");
+    }
+
+    public MarcaProducto getMarca() {
+        return marca;
+    }
+
+    public void setMarca(MarcaProducto marca) {
+        this.marca = marca;
+    }
+
+    public List<MarcaProducto> getMarcas() {
+        return marcas;
+    }
+
+    public void setMarcas(List<MarcaProducto> marcas) {
+        this.marcas = marcas;
     }
 
     public List<Producto> getProductos() {
@@ -75,20 +100,19 @@ public class productosController implements Serializable {
     }
 
     public void registrarProducto(Part imagen) {
+        RequestContext context = RequestContext.getCurrentInstance();
         try {
             SubirArchivos subir = new SubirArchivos();
             subir.setP(producto);
-            String d=subir.SubirArchivo("catalogo", imagen);
-            
-            producto.setImagen(d+subir.extension(subir.nombreArchivo(imagen)));
-            est.setIdEstPro(1);
+            String d = subir.SubirArchivo("catalogo", imagen);
+            est = estLocal.find(1);
             producto.setIdEstPro(est);
+            producto.setIdMarca(marca);
+            producto.setImagen(d+subir.extension(subir.nombreArchivo(imagen)));
             productoLocal.create(producto);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Aviso"),
-            ("LosProductosSeHanGuardadoCorrectamente")));
+            context.execute("swal('Registro','Exitoso','success')");
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Error"),
-           ("OcurrioUnErrorAlRegistrar")));
+            context.execute("swal('Lo sentimos','Intentalo nuevamene, en otro momento','error')");
         }
 
     }
@@ -99,13 +123,12 @@ public class productosController implements Serializable {
     }
     
     public void cambiar(){
+        RequestContext context = RequestContext.getCurrentInstance();
         try {
             productoLocal.edit(producto);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Aviso")
-                    , ("LosProductosSeActualizaronCorrectamente")));
+            context.execute("swal('Se cambiaron','Los datos de manera correcta','success')");
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Error")
-                    , ("NoSeHaActualizado")));
+            context.execute("swal('Lo sentimos','Ha ocurrido un error','error')");
         }
     }
 }

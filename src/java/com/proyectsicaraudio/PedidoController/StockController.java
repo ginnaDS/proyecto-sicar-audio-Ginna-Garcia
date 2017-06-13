@@ -42,7 +42,7 @@ public class StockController implements Serializable{
     
     @PostConstruct
     public void init(){
-        pedidos = pedidosLista();
+//        pedidos = descontarCantidad();
     }
 
     public Producto getProducto() {
@@ -78,17 +78,17 @@ public class StockController implements Serializable{
     }
 
     public List<Pedido> pedidosLista(){
-        List<Pedido>lista= new LinkedList<>();
+        List<Pedido> lista= new LinkedList<>();
+        
         try {
-    Estadopedido e= new Estadopedido(14);
-   lista= pedidoLocal.traerPed(e);
-            for (Pedido pedido1 : lista) {
-                System.out.println(e.getIdEstadoPe());
+            Estadopedido e = new Estadopedido(14);
+            lista = pedidoLocal.traerPed(e);
+            for (Pedido pedido1 : lista){
+                
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
-    return lista;
+        return lista;
     }
     
     

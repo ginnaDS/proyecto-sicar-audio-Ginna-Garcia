@@ -20,6 +20,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -29,7 +30,7 @@ import javax.servlet.http.Part;
 @ViewScoped
 public class EventoController implements Serializable {
     
-     @EJB
+    @EJB
     private UsuarioFacadeLocal usuariofl;
     
     @EJB
@@ -82,7 +83,7 @@ public class EventoController implements Serializable {
     
     
    public void asignarEvento(Part fotoEvento){
-       
+       RequestContext context = RequestContext.getCurrentInstance();
        try{
            SubirArchivos subir= new SubirArchivos();
            Usuario u=(Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("us");
@@ -96,11 +97,9 @@ public class EventoController implements Serializable {
            System.out.println("Evento "+evento.getPoster());
            eventofl.create(evento);
            
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Aviso"),
-                   ("SeCreoUnNuevoEvento")));
+           context.execute("swal('Se ha registrado','Un nuevo evento','success')");
        }catch(Exception e){ 
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Error"),
-                   ("NoSeHaPodidoAñadirElEvento")));
+           context.execute("swal('Lo sentimos','se ha producido un error, intentalo nuevamente','error')");
        }
                
    }

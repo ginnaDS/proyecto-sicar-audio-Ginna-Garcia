@@ -6,8 +6,10 @@
 package com.proyectsicaraudio.InstalacionController;
 
 import com.proyectsicaraudio.EJB.CarroFacadeLocal;
+import com.proyectsicaraudio.EJB.MarcaFacadeLocal;
 import com.proyectsicaraudio.EJB.UsuarioFacadeLocal;
 import com.proyectsicaraudio.model.Carro;
+import com.proyectsicaraudio.model.Marca;
 import com.proyectsicaraudio.model.Usuario;
 import java.io.Serializable;
 import java.util.List;
@@ -32,35 +34,41 @@ public class VehiculoController implements Serializable {
     private CarroFacadeLocal carroLocal;
     @EJB
     private UsuarioFacadeLocal usuarioLocal;
+    @EJB
+    private MarcaFacadeLocal marcaEJB;
     @Inject
     private Carro carro;
     private List<Carro> carros;
     @Inject
     private Usuario usuario;
-    
+    @Inject
+    private Marca marca;
+    private List<Marca> marcas;
     private FacesContext facesContext;
     private ResourceBundle rb;
     
     @PostConstruct
     public void init(){
+        marcas = marcaEJB.findAll();
+        carros = carroLocal.carrosUsuario();
        facesContext = FacesContext.getCurrentInstance();
        rb =facesContext.getApplication().getResourceBundle(facesContext, "msjIns");
     }
 
-    public CarroFacadeLocal getCarroLocal() {
-        return carroLocal;
+    public Marca getMarca() {
+        return marca;
     }
 
-    public void setCarroLocal(CarroFacadeLocal carroLocal) {
-        this.carroLocal = carroLocal;
+    public void setMarca(Marca marca) {
+        this.marca = marca;
     }
 
-    public UsuarioFacadeLocal getUsuarioLocal() {
-        return usuarioLocal;
+    public List<Marca> getMarcas() {
+        return marcas;
     }
 
-    public void setUsuarioLocal(UsuarioFacadeLocal usuarioLocal) {
-        this.usuarioLocal = usuarioLocal;
+    public void setMarcas(List<Marca> marcas) {
+        this.marcas = marcas;
     }
 
     public Carro getCarro() {
@@ -92,6 +100,7 @@ public class VehiculoController implements Serializable {
             
             Usuario u=(Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("us");
             System.out.println(u.getIdUsuario());
+            carro.setIdMarca(marca);
             carro.setIdUsuario(u);
             carroLocal.create(carro);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Aviso"),
@@ -102,7 +111,22 @@ public class VehiculoController implements Serializable {
             ("NoSeHaRegitrado")));
         }
     }
-    
-    
-    
+     
+     public void eliminar(Carro cr){
+         try {
+         carroLocal.remove(cr);
+             System.out.println("se elimino"); 
+         } catch (Exception e) {
+             System.out.println("no se elimino "+e.getMessage()+e.getCause());
+         }
+     }
+     
+     public void ver(Carro ca){
+         this.carro=ca;
+     }
+     
+     public void editar(){
+         carroLocal.edit(carro);
+     }
+ 
 }

@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form>
+                        <h1><h:outputText value="Create/Edit"/></h1>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="IdRol:" for="Codigo" />
+                            <p:inputText id="idRol" value="#{rolesControllere.rol.idRol}" title="IdRol" required="true" requiredMessage="The IdRol field is required."/>
+                            <p:outputLabel value="TipoRol:" for="Rol" />
+                            <p:inputText id="tipoRol" value="#{rolesControllere.rol.tipoRol}" title="TipoRol" required="true" requiredMessage="The TipoRol field is required."/>
+                            <p:commandButton value="Guardar" actionListener="#{rolesControllere.registraRol()}"/>
+                        </h:panelGrid>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

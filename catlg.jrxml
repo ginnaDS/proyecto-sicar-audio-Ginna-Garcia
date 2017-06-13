@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dcbcfef1-5d1b-43b1-9f75-9d6f956c1104">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="89" height="79" uuid="44424edf-20b3-40de-b284-35b0ce264001"/>
+				<imageExpression><![CDATA["C:\\Users\\ginna\\Desktop\\proyecto\\versiones\\v5sicaraudio\\web\\resources\\imagenes\\logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="110" y="14" width="445" height="48" forecolor="#3300FF" uuid="e6f7b747-ae06-45e1-8548-b18cb56c5c23"/>
+				<textElement>
+					<font size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Catalogo Milenium Audio]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="142" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="14" width="122" height="111" uuid="9bc657ae-f2c3-40d8-94f0-d8ab1d831fbd"/>
+				<imageExpression><![CDATA[$F{imagen}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="379" y="39" width="100" height="20" uuid="1300ca84-7a10-4cd2-a233-0c055d863019"/>
+				<textFieldExpression><![CDATA[$F{marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="101" width="100" height="20" uuid="7bf8eee3-d9ab-4ac6-a312-5f8151dcb9af"/>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="71" width="100" height="20" uuid="9b333f73-92e6-4b76-b624-a1ee46fbe586"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="10" width="100" height="20" uuid="a60846e9-37d7-4856-97f1-9f21574af3d2"/>
+				<textFieldExpression><![CDATA[$F{nroReferencia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="39" width="100" height="20" uuid="da4d63c7-54ba-448f-b456-d4ca2ee5cf82"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="10" width="100" height="20" uuid="c27217f1-fe40-4170-9572-1f1708b3190d"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[nroReferencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="71" width="100" height="20" uuid="a209bfbc-ab59-47ec-99d9-02f23b6df77e"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="101" width="100" height="20" uuid="5ff4450d-ed36-49fa-97b8-8e0b5b5f7d4c"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[precio]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="445" y="12" width="100" height="20" uuid="ee6e63a4-7b19-47cf-9a6d-5d490442fc86"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="225" y="23" width="100" height="20" uuid="f109cca0-0031-4953-b3d1-f3b3382cbff9"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

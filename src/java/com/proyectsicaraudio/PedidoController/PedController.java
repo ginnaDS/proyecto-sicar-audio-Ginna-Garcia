@@ -20,6 +20,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -90,20 +91,17 @@ public class PedController implements Serializable{
      }
      
      public void actualizar(){
+         RequestContext context = RequestContext.getCurrentInstance();
          try {
              Estadopedido et = estLocal.find(estado.getIdEstadoPe());
              pedido.setIdEstadoPe(et);
              for (Detallespedido d: pedido.getDetallespedidoList()) {
-                 System.out.println("cantidad antes "+d.getCantidadProducto());
                  pedidolocal.reducirStock(d);
-                 System.out.println("cantidad despues "+d.getCantidadProducto());
              }
              pedidolocal.edit(pedido);
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Aviso")
-                    , ("HaCambiadoElEstadoDelPedido"))); 
+         context.execute("swal('Actualizacion','Exitosa','success')"); 
          } catch (Exception e) {
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Error")
-                    , ("NoSeHaCambiadoElEstado"))); 
+             context.execute("swal('Lo sentimos','Intentalo nuevamente','error')");
              System.out.println(e.getMessage());
          }        
      }

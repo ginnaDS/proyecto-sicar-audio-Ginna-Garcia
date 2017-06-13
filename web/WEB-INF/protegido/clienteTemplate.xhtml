@@ -15,6 +15,9 @@
         <h:outputStylesheet library="css" name="bootstrap.min.css"/>
         <!--<h:outputStylesheet library="css" name="userIn.css"/>-->
         <h:outputStylesheet library="css" name="estilo_rol.css"/>
+        <h:outputStylesheet library="css" name="sweetalert2.css"/>
+        <!--<link href="#{request.contextPath}/resources/css/sweetalert2.css"/>-->
+        <!--<h:outputStylesheet library=""-->
         <title>Sicar Audio</title>
         <f:event type="preRenderView" listener="#{sesionController.verificarSesion()}"/>
     </h:head>
@@ -22,123 +25,37 @@
     <h:body id="prin">
 
 
+        
         <div>
             <div id="left">
-                <div class="navi">
+                <div class="navi" style="background-color: #{sesionController.cambiarColor()}">
                     <ui:insert name="left">
-                        <!--                        <div class="container-fluid display-table">
-                                                    <div class="row display-table-row">
-                                                        <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
-                                                            <h:form>
-                                                            <h:dataTable value="#{registroUsuario.rol.permisoList}">
-                                                                <h:column>
-                                                                    
-                                                                    <ul class="nav">
-                                                                        <center> <p:graphicImage library="imagenes" name="usuario.jpg" style="border-radius: 50%; margin-bottom: 15px;"/>
-                                
-                                                            <h:outputLabel value="#{sesionController.usuarioActivo().nombreUsuario}"/></center>
-                                                                            <br/>
-                                                                        <c:forEach items="#{loginController.rol.permisoList}" var="permiso">
-                                                                        <c:if test="#{empty permiso.permisoPadre and empty permiso.permisoList}">
-                                                                            <li><h:link outcome="#{permiso.url}"><p>#{permiso.nombre}</p></h:link></li>
-                                                                        </c:if>
-                                                                        <c:if test="#{empty permiso.permisoPadre and not empty permiso.permisoList}">
-                                                                            <li class="dropdown"><a class="dropdown" data-togle="dropdown" href="#{permiso.url}">
-                                                                                    <p>#{permiso.nombre}</p></a>
-                                                                                <ul class="dropdown-menu">
-                                                                                    <c:forEach items="#{permiso.permisoList}" var="subitem">
-                                                                                        <c:forEach items="#{loginController.rol.permisoList}" var="p">
-                                                                                            <c:if test="#{subitem.equals(p)}">
-                                                                                                <li>
-                                                                                                    <h:link outcome="#{subitem.url}" style="color: #065162">
-                                                                                                        <p>#{subitem.nombre}</p>
-                                                                                                    </h:link>
-                                                                                                </li>
-                                                                                            </c:if>
-                                                                                        </c:forEach>
-                                                                                    </c:forEach>
-                                                                                </ul>
-                                                                            </li>
-                                                                        </c:if>
-                                                                    </c:forEach>
-                                                                    </ul>-->
-                        <!--</h:column>-->
-                        <!--                        <div class="container-fluid display-table">
-                                                    <div class="row display-table-row">
-                                                        <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
-                                                            <h:form>
-                                                            <h:dataTable value="#{registroUsuario.rol.permisoList}">
-                                                                <h:column>
-                                                                    
-                                                                    <ul class="nav">
-                                                                        <center> <p:graphicImage library="imagenes" name="usuario.jpg" style="border-radius: 50%; margin-bottom: 15px;"/>
-                                
-                                                            <h:outputLabel value="#{sesionController.usuarioActivo().nombreUsuario}"/></center>
-                                                                            <br/>
-                                                                        <c:forEach items="#{loginController.rol.permisoList}" var="permiso">
-                                                                        <c:if test="#{empty permiso.permisoPadre and empty permiso.permisoList}">
-                                                                            <li><h:link outcome="#{permiso.url}"><p>#{permiso.nombre}</p></h:link></li>
-                                                                        </c:if>
-                                                                        <c:if test="#{empty permiso.permisoPadre and not empty permiso.permisoList}">
-                                                                            <li class="dropdown"><a class="dropdown" data-togle="dropdown" href="#{permiso.url}">
-                                                                                    <p>#{permiso.nombre}</p></a>
-                                                                                <ul class="dropdown-menu">
-                                                                                    <c:forEach items="#{permiso.permisoList}" var="subitem">
-                                                                                        <c:forEach items="#{loginController.rol.permisoList}" var="p">
-                                                                                            <c:if test="#{subitem.equals(p)}">
-                                                                                                <li>
-                                                                                                    <h:link outcome="#{subitem.url}" style="color: #065162">
-                                                                                                        <p>#{subitem.nombre}</p>
-                                                                                                    </h:link>
-                                                                                                </li>
-                                                                                            </c:if>
-                                                                                        </c:forEach>
-                                                                                    </c:forEach>
-                                                                                </ul>
-                                                                            </li>
-                                                                        </c:if>
-                                                                    </c:forEach>
-                                                                    </ul>
-                                                                </h:column>
-                                                            </h:dataTable>
-                                                            </h:form>
-                                                        </div>
-                                                    </div>
-                                                </div>-->
-
                         <div class="container-fluid display-table">
-                            <div class="row display-table-row">
-                                <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
-                                    <h:form>
+                        <div class="row display-table-row">
+                        <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
+                        <h:form>
 
-                                        <center> <p:graphicImage library="imagenes" name="usuario.jpg" style="border-radius: 50%; margin-bottom: 15px;"/>
+                            <center> <p:graphicImage library="imagenes" name="#{sesionController.userFoto()}" style="border-radius: 50%; margin-bottom: 10px; width: 200px;" />
+                                <br/>
+                            <h:outputLabel value="#{sesionController.usuarioActivo().nombreUsuario}"/></center>
+                            <br/>
+                            
+                            <h:dataTable value="#{menuController.listarPermisos()}" var="item">
 
-                                            <h:outputLabel value="#{sesionController.usuarioActivo().nombreUsuario}"/></center>
-                                        <br/>
+                                <h:column >
+                                        
+                                    <h:link class="active" value="#{item.nombre}" outcome="#{item.url}" />     
 
-                                        <ul>
-                                            <c:forEach items="#{menuController.listarPermisos()}" var="p">
-                                                <c:if test="#{empty p.permisoPadre}">
-                                                    <li class="dropdown">
-                                                        <a class="dropdown-toggle" data-togle="dropdown" href="#{p.url}">#{p.nombre}</a>
-                                                        <ul class="dropdown-menu">
-                                                            <c:forEach items="#{p.permisoList}" var="sp">
-                                                                <c:forEach items="#{menuController.listarPermisos()}" var="p1">
-                                                                    <c:if test="#{p1.idPermiso eq sp.idPermiso}">
-                                                                        <li ><a >#{sp.nombre}</a></li>
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                            </c:forEach>
-                                                        </ul>
-                                                    </li>
-                                                </c:if>
-                                            </c:forEach>
-                                        </ul>
-                                        <h:commandLink actionListener="#{loginController.cerrarSesion()}" value="Cerrar Sesion" action="index"/>
+                                </h:column> 
+                                
+                                
+                            </h:dataTable>
+                            
+                            <h:commandLink actionListener="#{loginController.cerrarSesion()}" value="Cerrar Sesion" action="index"/>
 
-                                    </h:form>
-                                </div>
-                            </div>
+                        </h:form>
+                        </div>
+                        </div>
                         </div>
                     </ui:insert>
                 </div>
@@ -214,7 +131,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary" style="; " data-toggle="modal" data-target=".bs-example-modal-lg">Actualizar datos</button>
+                    <button type="button" class="btn btn-default" style="background: #ccccff; " data-toggle="modal" data-target=".bs-example-modal-lg">Actualizar datos</button>
 
                 </ui:insert>
             </div>
@@ -225,6 +142,15 @@
 
         <h:outputScript library="js" name="bootstrap.min.js"/>  
         <h:outputScript library="js" name="validar.js"/>
+        <h:outputScript library="js" name="sweetalert2.min.js"/>
+        
+<!--        <script src="#{request.contextPath}/resources/js/sweetalert2.min.js}"/>
+        <script type="text/javascript" src="#{request.contextPath}/resources/js/sweetalert2.min.js"/>
+        <script>
+            function abrirAlerta(titulo, mensaje, tipo){
+                swal(titulo, mensaje, tipo);
+            }
+        </script>-->
     </h:body>
 
 </html>

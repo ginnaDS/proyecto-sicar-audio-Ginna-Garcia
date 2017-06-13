@@ -64,9 +64,14 @@ public class MenuController implements Serializable {
     public List<Permiso> listarPermisos() {
 
         Usuario us = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("us");
-        Rol rol = us.getIdRol();
         List<Permiso> permisos2 = new LinkedList<>();
+        if (us!=null) {
+        Rol rol = us.getIdRol();
         permisos2 = rol.getPermisoList();
+            
+        }else{
+            System.out.println("sdfsdfsdfs nul");
+        }
 
         return permisos2;
     }

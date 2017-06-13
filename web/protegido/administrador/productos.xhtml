@@ -9,39 +9,46 @@
 
     <body>
 
-        <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
+        <ui:composition template="../../WEB-INF/protegido/clienteTemplate.xhtml">
 
-           
 
             <ui:define name="content">
+                <ol class="breadcrumb migaR" >
+                      <li><a href="principal.xhtml" data-toggle="tab" aria-hidden="true">Inicio</a></li>
+                    
+                      <li class="active"><a href="progen.xhtml">Productos</a></li>
+                      <li class="active"><a href="listar.xhtml">Lista productos</a></li>
+                    </ol>
                 <f:view>
-
 
                     <h:form enctype="multipart/form-data"  pi:method="post">
                         <h1><h:outputText value="Agregar productos"/></h1>
                         <h:panelGrid columns="2">
+                            
                             <p:outputLabel value="Numero de referencia:" for="nroReferencia" />
                             <p:inputText id="nroReferencia" value="#{productosController.producto.nroReferencia}" title="NroReferencia" required="true"/>
                             <p:outputLabel value="Marca:" for="marca" />
-                            <p:inputText id="marca" value="#{productosController.producto.marca}" title="Marca" required="true"/>
+                            <h:selectOneMenu id="idMarca" value="#{productosController.marca.idMarca}" required="true">
+                                <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
+                                <f:selectItems value="#{productosController.marcas}" var="mcs" itemLabel="#{mcs.marca}" itemValue="#{mcs.idMarca}"/>
+                            </h:selectOneMenu>
                             <p:outputLabel value="Cantidad:" for="cantidad" />
                             <p:inputText id="cantidad" value="#{productosController.producto.cantidad}" maxlength="3" onkeypress="return solonumeros(event)" title="Cantidad" required="true"/>
                             <p:outputLabel value="Nombre:" for="nombre" />
                             <p:inputText id="nombre" value="#{productosController.producto.nombre}" onkeypress="return sololetras(event)" title="Nombre" required="true"/>
                             <p:outputLabel value="Precio: " for="precioProducto"/>
                             <p:inputText id="precioProducto" value="#{productosController.producto.precio}" maxlength="6" onkeypress="return solonumeros(event)" title="Precio" required="true"/>
-                            <h:outputLabel value="Imagen" for="imagen"/>
-                            <h:inputFile value="#{imagen}" id="imagen" title="sube una foto del producto"/>
+                            <p:outputLabel value="Imagen" for="imagen"/>
+                            <h:inputFile value="#{imagen}" id="imagen"/>
                         </h:panelGrid>
-                        <p:commandButton value="Agregar" actionListener="#{productosController.registrarProducto(imagen)}"/>
+                        <h:commandButton value="Agregar" actionListener="#{productosController.registrarProducto(imagen)}"/>
                     </h:form>
+                    
                 </f:view>
+                    
 
             </ui:define>
 
-            <ui:define name="bottom">
-                bottom
-            </ui:define>
 
         </ui:composition>
 

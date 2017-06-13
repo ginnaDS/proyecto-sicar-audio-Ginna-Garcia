@@ -6,6 +6,7 @@
 package com.proyectsicaraudio.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -21,6 +22,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -44,16 +47,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByTelefono", query = "SELECT u FROM Usuario u WHERE u.telefono = :telefono"),
     @NamedQuery(name = "Usuario.findByCc", query = "SELECT u FROM Usuario u WHERE u.cc = :cc"),
     @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario"),
-    @NamedQuery(name = "Usuario.findByContrasenia", query = "SELECT u FROM Usuario u WHERE u.contrasenia = :contrasenia")})
+    @NamedQuery(name = "Usuario.findByContrasenia", query = "SELECT u FROM Usuario u WHERE u.contrasenia = :contrasenia"),
+    @NamedQuery(name = "Usuario.findByGenero", query = "SELECT u FROM Usuario u WHERE u.genero = :genero"),
+    @NamedQuery(name = "Usuario.findByFechaNacimiento", query = "SELECT u FROM Usuario u WHERE u.fechaNacimiento = :fechaNacimiento")})
 public class Usuario implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.LAZY)
-    private List<Cita> citaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.LAZY)
     private List<Carro> carroList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.LAZY)
-    private List<Cliente> clienteList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,15 +63,15 @@ public class Usuario implements Serializable {
     private Integer idUsuario;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 3, max = 10)
+    @Size(min = 1, max = 10)
     @Column(name = "primerNombre")
     private String primerNombre;
     @Size(max = 10)
     @Column(name = "segundoNombre")
-    private String segundoNombre; 
+    private String segundoNombre;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 4, max = 14)
+    @Size(min = 1, max = 14)
     @Column(name = "primerApellido")
     private String primerApellido;
     @Size(max = 12)
@@ -79,7 +79,7 @@ public class Usuario implements Serializable {
     private String segundoApellido;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 15, max = 40)
+    @Size(min = 1, max = 40)
     @Column(name = "correo")
     private String correo;
     @Basic(optional = false)
@@ -92,17 +92,24 @@ public class Usuario implements Serializable {
     private long cc;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 4, max = 15)
+    @Size(min = 1, max = 15)
     @Column(name = "nombreUsuario")
     private String nombreUsuario;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 6, max = 40)
+    @Size(min = 1, max = 40)
     @Column(name = "contrasenia")
     private String contrasenia;
-    @Size(min = 1, max = 65535)
-    @Column(name = "foto")
-    private String foto;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2)
+    @Column(name = "genero")
+    private String genero;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fechaNacimiento")
+    @Temporal(TemporalType.DATE)
+    private Date fechaNacimiento;
     @JoinColumn(name = "idRol", referencedColumnName = "idRol")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Rol idRol;
@@ -117,7 +124,7 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(Integer idUsuario, String primerNombre, String primerApellido, String correo, long telefono, long cc, String nombreUsuario, String contrasenia, String foto) {
+    public Usuario(Integer idUsuario, String primerNombre, String primerApellido, String correo, long telefono, long cc, String nombreUsuario, String contrasenia, String genero, Date fechaNacimiento) {
         this.idUsuario = idUsuario;
         this.primerNombre = primerNombre;
         this.primerApellido = primerApellido;
@@ -126,7 +133,8 @@ public class Usuario implements Serializable {
         this.cc = cc;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
-        this.foto = foto;
+        this.genero = genero;
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public Integer getIdUsuario() {
@@ -209,13 +217,21 @@ public class Usuario implements Serializable {
         this.contrasenia = contrasenia;
     }
 
-    public String getFoto() {
-        return foto;
+    public String getGenero() {
+        return genero;
     }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }    
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
     public Rol getIdRol() {
         return idRol;
@@ -256,24 +272,6 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "com.proyectsicaraudio.model.Usuario[ idUsuario=" + idUsuario + " ]";
-    }
-
-    @XmlTransient
-    public List<Cliente> getClienteList() {
-        return clienteList;
-    }
-
-    public void setClienteList(List<Cliente> clienteList) {
-        this.clienteList = clienteList;
-    }
-
-    @XmlTransient
-    public List<Cita> getCitaList() {
-        return citaList;
-    }
-
-    public void setCitaList(List<Cita> citaList) {
-        this.citaList = citaList;
     }
 
     @XmlTransient

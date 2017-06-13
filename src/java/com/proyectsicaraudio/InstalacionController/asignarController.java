@@ -23,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -36,7 +37,7 @@ public class asignarController implements Serializable {
     private UsuarioFacadeLocal usuarioLocal;
     @EJB
     private RolFacadeLocal rolLocal;
-    
+    @EJB
   private EmailFacadeLocal emailfl;
   private Email email;
      @EJB
@@ -100,18 +101,20 @@ public class asignarController implements Serializable {
     }
     
     public void asignarTecnico(){
+        RequestContext context = RequestContext.getCurrentInstance();
       try {
          Usuario us= usuarioLocal.find(usua.getIdUsuario());
          c.setIdUsuario(us);
+          System.out.println("tecnico "+us.getNombreUsuario());
          Cita cit= citaLocal.find(c.getIdCita());
-          System.out.println(cit.getIdCita());
+          System.out.println("id "+cit.getIdCita());
+          cit.setIdUsuario(us);
          citaLocal.edit(cit); 
+         
 //        emailfl.envNotfCita(cit, us);
-      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Aviso")
-                    ,("CambiosGuardados"))); 
+      context.execute("swal('El tecnico','Fue asignado exitosamente','success')");
       } catch (Exception e) {
-      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Error")
-                    , ("CambiosNoGuardados"+e.getMessage())));
+      context.execute("swal('Lo sentimos','No se ha podido asignar','error')");
       }
       
       

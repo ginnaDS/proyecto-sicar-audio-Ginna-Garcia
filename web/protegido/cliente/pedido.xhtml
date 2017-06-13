@@ -19,7 +19,8 @@
                 <br/>
                 <center><h:panelGrid columns="1">
                         <h:form id="fecha">
-                            <p:calendar id="fechaE" value="#{pedidoController.fecha}" mindate="Date" maxdate="Date+15" required="true" requiredMessage="requerido" disabled="#{pedidoController.bloqueo}" />
+                            <h3>Fecha para recibir tu pedido</h3>
+                            <p:calendar title="Al seleccionar la fecha te aparecera el formulario para solicitar tu pedido" id="fechaE" value="#{pedidoController.fecha}" mindate="Date" maxdate="Date+15" required="true" p:placeholder="Fecha" requiredMessage="El campo fecha es requerido" disabled="#{pedidoController.bloqueo}" />
                             <p:commandButton value="Seleccionar Productos" onclick="PF('dlg').show();" 
                                              actionListener="#{pedidoController.inactivo()}" disabled="#{pedidoController.bloqueo}" 
                                              update=":otrosdatos" id="btn" process="fechaE"/>
@@ -49,7 +50,7 @@
                                     <p:commandLink value="añadir" actionListener="#{pedidoController.registrar()}" update=":listaDet"/>
 
                                 </h:panelGrid>
-                                <p:commandButton value="Guardar" actionListener="#{pedidoController.registrarPedido()}"/>
+                                <p:commandButton value="Guardar" actionListener="#{pedidoController.registrarPedido()}" />
 
                             </h:form>
                             <f:view>
@@ -98,6 +99,10 @@
 
 
                 </center>
+                
+                <h:form>
+                    <h:commandButton value="Catalogo" actionListener="#{prefacturaController.exportarPdf()}"/>
+                </h:form>
             </ui:define>
 
         </ui:composition>

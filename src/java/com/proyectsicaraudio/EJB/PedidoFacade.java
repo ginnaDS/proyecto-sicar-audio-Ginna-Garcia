@@ -88,9 +88,7 @@ public class PedidoFacade extends AbstractFacade<Pedido> implements PedidoFacade
         try {
             Query consulta=getEntityManager().createNativeQuery("call descontar_stock(?1,?2)");
             consulta.setParameter(1, d.getIdProducto());
-            System.out.println("id "+d.getIdPedido());
             consulta.setParameter(2, d.getCantidadProducto());
-            System.out.println("cantidad "+d.getCantidadProducto());
             confirmacion=true;
         } catch (Exception e) {
             System.out.println(e.getMessage());

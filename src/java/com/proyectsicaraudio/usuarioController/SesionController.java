@@ -9,6 +9,7 @@ import com.proyectsicaraudio.EJB.ClienteFacadeLocal;
 import com.proyectsicaraudio.EJB.UsuarioFacadeLocal;
 import com.proyectsicaraudio.model.Cliente;
 import com.proyectsicaraudio.model.Usuario;
+import java.io.File;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -82,7 +83,7 @@ public class SesionController implements Serializable{
                 
             }
         } catch (Exception e) {
-            
+            System.out.println(e.getMessage());
            //log para guardar algun registro de algun error
         }
     }
@@ -112,5 +113,43 @@ public class SesionController implements Serializable{
        } catch (Exception e) {
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Aviso", e.getCause().getMessage()));
        }
+   }
+   
+   
+   public String userFoto(){
+       String ruta = null;
+       FacesContext context = FacesContext.getCurrentInstance(); 
+         Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("us");
+         
+         switch(us.getGenero()){
+             case "F": ruta= "mujer.png";
+             break;
+             case "M": ruta= "hombre2.png";
+             break;
+             case "O": ruta= "lgbti.png";
+             break;
+             
+         }
+         
+         return ruta;
+         
+   }
+   
+   public String cambiarColor(){
+         String color = null;
+       FacesContext context = FacesContext.getCurrentInstance(); 
+         Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("us");
+         
+         switch(us.getGenero()){
+             case "F": color= "#f00";
+             break;
+             case "M": color= "#0f0";
+             break;
+             case "O": color= "#00f";
+             break;
+             
+         }
+         
+         return color;
    }
 }

@@ -45,6 +45,7 @@ public class instalacionController implements Serializable {
     private List<Usuario> usuarios;
     @Inject
     private Instalacion inta;
+    private List<Instalacion> instalaciones;
     @Inject
     private Cita cita;
     private List<Cita> citas;
@@ -53,22 +54,15 @@ public class instalacionController implements Serializable {
     
     private FacesContext facesContext;
     private ResourceBundle rb;
-    @PostConstruct
-    public void init(){
-        usuarios = usuarioLocal.findAll();
-        citas = citaLocal.citasTecnico();   
-        facesContext = FacesContext.getCurrentInstance();
-        rb =facesContext.getApplication().getResourceBundle(facesContext, "msjIns");
+
+    public List<Instalacion> getInstalaciones() {
+        return instalaciones;
     }
 
-
-    public RolFacadeLocal getRolLocal() {
-        return rolLocal;
+    public void setInstalaciones(List<Instalacion> instalaciones) {
+        this.instalaciones = instalaciones;
     }
 
-    public void setRolLocal(RolFacadeLocal rolLocal) {
-        this.rolLocal = rolLocal;
-    }
 
     public Rol getRol() {
         return rol;
@@ -77,31 +71,7 @@ public class instalacionController implements Serializable {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
-    
-    public UsuarioFacadeLocal getUsuarioLocal() {
-        return usuarioLocal;
-    }
-
-    public void setUsuarioLocal(UsuarioFacadeLocal usuarioLocal) {
-        this.usuarioLocal = usuarioLocal;
-    }
-
-    public InstalacionFacadeLocal getInstalacionLocal() {
-        return instalacionLocal;
-    }
-
-    public void setInstalacionLocal(InstalacionFacadeLocal instalacionLocal) {
-        this.instalacionLocal = instalacionLocal;
-    }
-
-    public CitaFacadeLocal getCitaLocal() {
-        return citaLocal;
-    }
-
-    public void setCitaLocal(CitaFacadeLocal citaLocal) {
-        this.citaLocal = citaLocal;
-    }
-
+   
     public Usuario getUsuario() {
         return usuario;
     }
@@ -140,6 +110,14 @@ public class instalacionController implements Serializable {
 
     public void setCitas(List<Cita> citas) {
         this.citas = citas;
+    }
+    @PostConstruct
+    public void init(){
+        instalaciones = instalacionLocal.findAll();
+        usuarios = usuarioLocal.findAll();
+        citas = citaLocal.citasTecnico(); 
+        facesContext = FacesContext.getCurrentInstance();
+        rb =facesContext.getApplication().getResourceBundle(facesContext, "msjIns");
     }
     
     public void registrarInsta(){

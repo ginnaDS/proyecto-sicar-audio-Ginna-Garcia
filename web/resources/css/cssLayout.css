@@ -18,7 +18,7 @@
     float: left;
     background: linear-gradient(#7f525d,whitesmoke);
     padding: 10px;
-    width: 210px;
+    width: 240px;
 }
 
 #right {
@@ -38,7 +38,7 @@
 .left_content {
     background-color: #fff;
     padding: 5px;
-    margin-left: 170px;
+    margin-left: 260px;
 }
 
 .right_content {

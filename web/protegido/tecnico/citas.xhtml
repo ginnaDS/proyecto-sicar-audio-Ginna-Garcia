@@ -12,9 +12,14 @@
 
 
             <ui:define name="content">
+                <ol class="breadcrumb migaR" >
+                      <li><a href="principal.xhtml" data-toggle="tab" aria-hidden="true">Inicio</a></li>
+                    
+                      <li class="active"><a href="citas.xhtml">Mis citas</a></li>
+                    </ol>
                 <center>
                         <h:form>
-                            <h1><h:outputText value="Lista instalaciones pendientes"/></h1>
+                            <h1><h:outputText value="Lista instalaciones"/></h1>
                             <p:dataTable class="tbl" value="#{instalacionController.citas}" var="item">
                                 <p:column>
                                     <f:facet name="header">

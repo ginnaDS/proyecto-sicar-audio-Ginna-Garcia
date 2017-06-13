@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
+
+            <ui:define name="content">
+                 <ol class="breadcrumb migaR" >
+                      <li><a href="principal.xhtml" data-toggle="tab" aria-hidden="true">Inicio</a></li>
+                    
+                      <li class="active"><a href="citagen.xhtml">Citas</a></li>
+                      <li class="active"><a href="eliminarcita.xhtml">Modificar citas</a></li>
+                    </ol>
+                <f:view>
+                    
+                            <center><h1><h:outputText value="Modificar citas"/></h1></center>
+                            <center> <h:form id="eliminarCita">
+                       
+                        <p:dataTable class="tbl" value="#{citControl.listaCitas}" rendered="true" var="cima">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Fecha"/>
+                                </f:facet>
+                                <h:outputText value="#{cima.fecha}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                                <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="motivo"/>
+                                </f:facet>
+                                    <h:outputText value="#{cima.motivo}"/>
+                                 
+                                   
+                                </p:column>
+                                
+                              
+                           
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Modificar"/>
+                                </f:facet>
+                                <p:commandButton onclick="PF('modificarp').show()" title="Modificar info. cita" update=":lista" actionListener="#{citControl.citat(cima)}" icon="ui-icon-pencil"/>
+                            </p:column>
+                             <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="motivo"/>
+                                </f:facet>
+                                 <p:commandButton icon="ui-icon-trash" update=":eliminarCita" title="Eliminar" actionListener="#{citaControl.eliminar(cima)}"/>
+                                 
+                                   
+                                </p:column>
+                            
+                            
+                        </p:dataTable>
+                        </h:form></center>
+                </f:view>
+                    <p:dialog widgetVar="modificarp">
+                        
+
+
+                        <f:view>
+                            
+                            <h:form id="lista">
+                               <h:panelGrid columns="2">
+                                    <h:outputLabel value="Fecha:" for="fecha" />
+                                    <p:calendar id="fecha" value="#{citControl.cita.fecha}" mindate="date" maxdate="date+10" title="Fecha" required="true" requiredMessage="The Fecha field is required.">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </p:calendar>
+                                    <h:outputLabel value="Motivo:" for="motivo" />
+                                    <h:inputTextarea rows="4" cols="30" id="motivo" value="#{citControl.cita.motivo}" title="Motivo" required="true" requiredMessage="The Motivo field is required."/>
+                                   
+                                </h:panelGrid>
+                                <p:commandButton value="Guardar cambios" actionListener="#{citControl.cancelarCita(item)}"/>
+                            </h:form>
+                        </f:view>
+
+                    </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

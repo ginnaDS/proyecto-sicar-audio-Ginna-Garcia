@@ -93,7 +93,7 @@ body {
 }
 
 body {
-    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Kumar One', cursive, Helvetica, Arial, sans-serif;
     font-weight: 300;
     color: #999; /* Can be changed via colors.css */
     background-color: #fff;
@@ -108,7 +108,7 @@ h5,
 h6 {
     margin: 0 0 20px 0;
     text-transform: none;
-    color: rgba(254,82,76, 1); /* Primary color, can be changed via colors.css */
+    color: rgb(76, 144, 254); /* Primary color, can be changed via colors.css */
     font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 600;
     letter-spacing: 1px;
@@ -236,14 +236,14 @@ blockquote {
     font-size: 22px;
     position: relative; 
     padding-left: 90px;
-    color: rgba(254,82,76, 1);
+    color:#910cc3;
     border-color: rgba(254,82,76, 1);
 }
  
 blockquote:before {
     content: "\f10d";
     font-size: 55px; 
-    font-family: FontAwesome;
+    font-family: 'Kumar One', cursive;;
     position: absolute;
     top: -4px;
     left: 20px;
@@ -401,7 +401,7 @@ blockquote span{
 .overlay {
     position: fixed;
     display: block; 
-    background: #a74ac7; /* Primary color, can be changed via colors.css */
+    background: rgba(0, 0, 0, 0.9); /* Primary color, can be changed via colors.css */
     top: 0;
     border: 0;
     left: 0;
@@ -1568,7 +1568,7 @@ footer .social a{
     padding: 5px 15px;
     color: #fff;
     border: 1px solid rgba(254,82,76, 1);
-    background: rgba(254,82,76, 1); /* Primary color, can be changed via colors.css */
+    background: rgba(25, 23, 23, 0.98); /* Primary color, can be changed via colors.css */
     font-size: 30px;
 }
 
@@ -1576,7 +1576,7 @@ footer .social a{
     border: 1px solid #fff; /* Hover border color, can be changed via colors.css */
     outline: 0;
     color: #fff;
-    background: #df514c; /* Hover color, can be changed via colors.css */
+    background: rgb(40, 141, 153); /* Hover color, can be changed via colors.css */
 }
 
 
@@ -1755,7 +1755,7 @@ footer .social a{
     }
     .navbar-custom.top-nav-collapse {
         padding: 10px 0;
-        background: #7f525d; /* Primary color, can be changed via colors.css */
+        background: rgba(25, 23, 23, 0.98); /* Primary color, can be changed via colors.css */
         -webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
            -moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
                 transition: background .5s ease-in-out, padding .5s ease-in-out;
@@ -1947,4 +1947,3 @@ body {
 .debug{
     border:1px solid #f00;
 }
-

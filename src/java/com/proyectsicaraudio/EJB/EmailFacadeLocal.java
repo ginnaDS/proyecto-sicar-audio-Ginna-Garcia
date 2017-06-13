@@ -17,4 +17,5 @@ public interface EmailFacadeLocal {
     void envEmailRegistroT(Usuario usuario);
     void envNotfCompra(Usuario user);
     void envNotfCita(Cita cita, Usuario use);
+    void contactenos(Usuario us);
 }

@@ -11,19 +11,24 @@
         <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
 
             <ui:define name="content">
+                <ol class="breadcrumb migaR" >
+                      <li><a href="principal.xhtml" data-toggle="tab" aria-hidden="true">Inicio</a></li>
+                    
+                        <li class="active"><a href="resultado.xhtml">Resultado cita</a></li>
+                    </ol>
                 <f:view>
 
 
                     <h:form>
                         <h1><h:outputText value="Resultado instalación"/></h1>
                         <h:panelGrid columns="2">
-                            <p:outputLabel value="IdCita:" for="idCita" />
+                            <p:outputLabel value="Codigo cita:" for="idCita" />
                             <p:selectOneMenu id="idCita" value="#{instalacionController.cita.idCita}" required="true">
                                <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
                                <f:selectItems value="#{instalacionController.citas}" var="cit" itemLabel="#{cit.idCita}" itemValue="#{cit.idCita}"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Resultado:" for="resultado" />
-                            <p:inputTextarea rows="4" cols="30" id="resultado" value="#{instalacionController.inta.resultado}" title="Resultado de la cita" required="true"/>
+                            <p:inputTextarea rows="4" cols="30" id="resultado" value="#{instalacionController.inta.resultado}" title="En este campo se pondra un informe detallado del resultado de la instalación" required="true"/>
                             <h:column/> 
                             <p:commandButton value="Registrar" actionListener="#{instalacionController.registrarInsta()}"/>
                         </h:panelGrid>

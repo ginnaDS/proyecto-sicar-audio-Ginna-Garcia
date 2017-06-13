@@ -15,14 +15,13 @@ import com.proyectsicaraudio.model.Estadocita;
 import com.proyectsicaraudio.model.Usuario;
 import java.io.Serializable;
 import java.util.List;
-import java.util.ResourceBundle;
+//import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -43,7 +42,6 @@ public class CitaController implements Serializable{
     private EstadocitaFacadeLocal estCiLocal;
     @Inject
     private Cita cita;
-   // private List<Cita> citas;
     @Inject
     private Carro carro;
     private List<Carro> carros;
@@ -52,16 +50,18 @@ public class CitaController implements Serializable{
     @Inject
     private Estadocita estCita;
     
-    private FacesContext facesContext;
-  private ResourceBundle rb;
+//    private FacesContext facesContext;
+//  private ResourceBundle rb;
      @PostConstruct
     public void init(){
+       
         carros = carroLocal.carrosUsuario();
-        facesContext = FacesContext.getCurrentInstance();
-        rb =facesContext.getApplication().getResourceBundle(facesContext, "msjIns");
+//        facesContext = FacesContext.getCurrentInstance();
+//        rb =facesContext.getApplication().getResourceBundle(facesContext, "msjIns");
      //   citas = citaLocal.citasTecnico();
     }
 
+   
     public CitaFacadeLocal getCitaLocal() {
         return citaLocal;
     }
@@ -137,22 +137,29 @@ public class CitaController implements Serializable{
     
     public void registrarCita(){
         System.out.println("registrar");
+        RequestContext context = RequestContext.getCurrentInstance();
         try {
             cita.setIdCarro(carro);
             estCita.setIdEstadoCi(3);
             cita.setIdEstadoCi(estCita);
             citaLocal.create(cita);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Aviso"),
-                         ("RegistroDeCitaExitoso")));
+        context.execute("swal('Tu cita','Se registro exitosamente','success')");
+
         } catch (Exception e) {
             System.out.println(e.getMessage()+"");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Error"),
-            ("CitaNoRegistrada")));
+        context.execute("swal('Lo sentimos','Intentalo nuevamene','error')");
         }
             
     }
     //p: message id="mensaje" autoupdate="false" severity="info, fatal" showSummary="true" showDetail="true"
-    
+    public void eliminar(Cita ct){
+        try {
+        citaLocal.remove(ct);
+            RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("swal('Eliminada!', 'con exito','success')");
+        } catch (Exception e) {
+        }
+    }
 }
   
 

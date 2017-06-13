@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
+
+            <ui:define name="content">
+                <ol class="breadcrumb migaR" >
+                      <li><a href="principal.xhtml" data-toggle="tab" aria-hidden="true">Inicio</a></li>
+                    
+                      <li class="active"><a href="progen.xhtml">Productos</a></li>
+                      <li class="active"><a href="proedit.xhtml">Modificar informacion de los productos</a></li>
+                    </ol>
+                <f:view>
+
+
+                    <h:form id="prod">
+                        <h1><h:outputText value="Modificar productos"/></h1>
+                        <p:dataTable value="#{productosController.productos}" paginator="true" rows="6" var="item">
+                            
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="NroReferencia"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nroReferencia}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Marca"/>
+                                </f:facet>
+                                <h:outputText value="#{item.marca}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Cantidad"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cantidad}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombre}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Precio"/>
+                                </f:facet>
+                                <h:outputText value="#{item.precio}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Modificar"/>
+                                </f:facet>
+                                <p:commandButton value="Cambiar" onclick="PF('est').show()" update=":llista" actionListener="#{productosController.verProducto(item)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+                <p:dialog widgetVar="est">
+                    <f:view>
+
+
+                        <h:form id="llista">
+                           
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="NroReferencia:" for="nroReferencia" />
+                                <h:outputLabel id="nroReferencia" value="#{productosController.producto.nroReferencia}" title="NroReferencia" />
+                                <h:outputLabel value="Marca:" for="marca" />
+                                <h:outputLabel id="marca" value="#{productosController.producto.marca}" title="Marca"/>
+                                <h:outputLabel value="Cantidad:" for="cantidad" />
+                                <h:inputText id="cantidad" value="#{productosController.producto.cantidad}" title="Cantidad" required="true" onkeypress="return solonumeros(event)"/>
+                                <h:outputLabel value="Nombre:" for="nombre" />
+                                <h:outputLabel id="nombre" value="#{productosController.producto.nombre}" title="Nombre"/>
+                                <h:outputLabel value="Precio:" for="precio" />
+                                <h:inputText id="precio" value="#{productosController.producto.precio}" title="Precio" required="true" onkeypress="return  solonumeros(event)"/>
+                                <p:commandButton value="Guardar Cambios" actionListener="#{productosController.cambiar()}" update=":prod"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </f:view>
+
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

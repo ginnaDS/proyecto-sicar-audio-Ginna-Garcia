@@ -1,47 +1,75 @@
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-          xmlns:h="http://xmlns.jcp.org/jsf/html"
-          xmlns:f="http://xmlns.jcp.org/jsf/core"
-          xmlns:p="http://primefaces.org/ui">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-        <body>
+    <body>
 
-            <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
+        <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
 
-                <ui:define name="content">
-                    <f:view>
+            <ui:define name="content">
+                <f:view>
 
 
-                        <h:form>
-                            <h1><h:outputText value="Registrar Administrador"/></h1>
-                            <h:panelGrid columns="2">
-                               <p:outputLabel value="PrimerNombre:" for="primerNombre" />
-                                <p:inputText id="primerNombre" value="#{registroAdmin.usuar.primerNombre}" title="PrimerNombre" required="true"/>
-                                <p:outputLabel value="SegundoNombre:" for="segundoNombre" />
-                                <p:inputText id="segundoNombre" value="#{registroAdmin.usuar.segundoNombre}" title="SegundoNombre" />
-                                <p:outputLabel value="PrimerApellido:" for="primerApellido" />
-                                <p:inputText id="primerApellido" value="#{registroAdmin.usuar.primerApellido}" title="PrimerApellido" required="true"/>
-                                <p:outputLabel value="SegundoApellido:" for="segundoApellido" />
-                                <p:inputText id="segundoApellido" value="#{registroAdmin.usuar.segundoApellido}" title="SegundoApellido" />
-                                <p:outputLabel value="Correo:" for="correo" />
-                                <p:inputText id="correo" value="#{registroAdmin.usuar.correo}" title="Correo" required="true"/>
-                                <p:outputLabel value="Telefono:" for="telefono" />
-                                <p:inputText id="telefono" value="#{registroAdmin.usuar.telefono}" title="Telefono" required="true"/>
-                                <p:outputLabel value="Cc:" for="cc" />
-                                <p:inputText id="cc" value="#{registroAdmin.usuar.cc}" title="Cc" required="true" requiredMessage="The Cc field is required."/>
-                                <p:outputLabel value="NombreUsuario:" for="nombreUsuario" />
-                                <p:inputText id="nombreUsuario" value="#{registroAdmin.usuar.nombreUsuario}" title="NombreUsuario" required="true"/>
+                    <h:form>
+                        <h1><h:outputText value="Registrar administrador"/></h1>
+                        <h:panelGrid columns="3">
+                            <h:outputLabel value="PrimerNombre:" for="primerNombre" />
+                            <p:inputText id="primerNombre" value="#{registroUsuario.usuario.primerNombre}" title="PrimerNombre" required="true" requiredMessage="The PrimerNombre field is required."/>
+                            <h:column/>
+                            <h:outputLabel value="SegundoNombre:" for="segundoNombre" />
+                            <p:inputText id="segundoNombre" value="#{registroUsuario.usuario.segundoNombre}" title="SegundoNombre" />
+                            <h:column/>
+                            <h:outputLabel value="PrimerApellido:" for="primerApellido" />
+                            <p:inputText id="primerApellido" value="#{registroUsuario.usuario.primerApellido}" title="PrimerApellido" required="true" requiredMessage="The PrimerApellido field is required."/>
+                            <h:column/>
+                            <h:outputLabel value="SegundoApellido:" for="segundoApellido" />
+                            <p:inputText id="segundoApellido" value="#{registroUsuario.usuario.segundoApellido}" title="SegundoApellido" />
+                            <h:column/>
+                            <div class="form-group">
+                                <label for="genero" class="control-label col-xs-2">Genero</label>
+                                <div class="col-xs-6">
+                                    <h:selectOneRadio value="#{registroUsuario.usuario.genero}">
+                                        <f:selectItem itemValue="F" itemLabel="Femenino"/>
+                                        <f:selectItem itemValue="M" itemLabel="Masculino"/>
+                                        <f:selectItem itemValue="O" itemLabel="Otro"/>
+                                    </h:selectOneRadio>
+                                </div>
+                            </div>
+                            <h:outputLabel value="Correo:" for="correo" />
+                            <p:inputText id="correo" value="#{registroUsuario.usuario.correo}" title="Correo" required="true" requiredMessage="The Correo field is required."/>
+                            <h:column/>
+                            <h:outputLabel value="Telefono:" for="telefono" />
+                            <p:inputText id="telefono" value="#{registroUsuario.usuario.telefono}" title="Telefono" required="true" requiredMessage="The Telefono field is required."/>
+                            <h:column/>
+                            <div class="form-group">
+                            <label for="fechaNacimiento" class="control-label col-xs-2">Fecha Nacimiento</label>
+                            <div class="col-xs-6">
+                                <p:calendar value="#{registroUsuario.usuario.fechaNacimiento}" mindate="1/1/45" maxdate="30/4/99" required="true"/>
+                                
+                                
+                            </div>
+                        </div>
+                            <h:outputLabel value="Cc:" for="cc" />
+                            <p:inputText id="cc" value="#{registroUsuario.usuario.cc}" title="Cc" required="true" requiredMessage="The Cc field is required."/>
+                            <h:column/>
+                            <h:outputLabel value="NombreUsuario:" for="nombreUsuario" />
+                            <p:inputText id="nombreUsuario" value="#{registroUsuario.usuario.nombreUsuario}" title="NombreUsuario" required="true" requiredMessage="The NombreUsuario field is required."/>
 
-                            </h:panelGrid>
+                        </h:panelGrid>                      
+                        <p:commandButton value="Registrar" actionListener="#{registroUsuario.registrarAdmin()}"/>
 
-                            <p:commandButton value="Registrar" actionListener="#{registroAdmin.registrarAdmin()}"/>
-                        </h:form>
-                    </f:view>
+                    </h:form>
+                </f:view>
 
-                </ui:define>
 
-            </ui:composition>
 
-        </body>
-    </html>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

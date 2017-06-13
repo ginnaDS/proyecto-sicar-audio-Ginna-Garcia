@@ -51,20 +51,27 @@ public class CitaFacade extends AbstractFacade<Cita> implements CitaFacadeLocal 
         return listaCitas;
     }
 
+    
     @Override
-    public List<Cita> citasCliente() {
-    String Consulta;
-    List<Cita> listaCita;
-    Usuario u=(Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("us");
-        try {
-            Consulta="FROM Cita c WHERE c.idCarro=in(SELECT Carro c where c.idUsuario=?1)";
-            Query query= getEntityManager().createQuery(Consulta);
+    public List<Cita> citasCliente(){
+        String consul;
+        List<Cita>listarcita = null;
+        Usuario u=(Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("us");
+        try{
+            consul="FROM Cita c WHERE c.idCarro in(SELECT ca FROM Carro ca WHERE ca.idUsuario=?1)"; 
+            Query query =getEntityManager().createQuery(consul);
             query.setParameter(1, u);
+            listarcita=query.getResultList();
             
-            listaCita=query.getResultList();
-        } catch (Exception e) {
-         throw e;
-        }return listaCita;
+        }catch(Exception e){
+            throw e;
+            
+            
+        }
+        return listarcita;
+        
+        
     }
+
     
 }

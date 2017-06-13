@@ -12,10 +12,16 @@
 
 
             <ui:define name="content">
+                 <ol class="breadcrumb migaR" >
+                      <li><a href="principal.xhtml" data-toggle="tab" aria-hidden="true">Inicio</a></li>
+                    
+                      <li class="active"><a href="vehigen.xhtml">Vehiculos</a></li>
+                      <li class="active"><a href="vehiculo.xhtml">Registrar vehiculo</a></li>
+                    </ol>
                 <f:view>
+                    <br/>
 
-
-                    <h:form>
+                    <center><h:form>
                         <h1><h:outputText value="Registrar Vehiculo"/></h1>
                         <h:panelGrid columns="2">
                             <div class="form-group">
@@ -27,7 +33,10 @@
                             <div class="form-group">
                                 <label for="marca" class="control-label col-xs-2">Marca</label>
                                 <div class="col-xs-6">
-                                    <h:inputText class="form-control" id="marca" value="#{vehiculoController.carro.marca}" required="true"/>
+                                    <h:selectOneMenu class="form-control" id="marca" value="#{vehiculoController.marca.idMarca}" required="true">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
+                                        <f:selectItems value="#{vehiculoController.marcas}" var="mc" itemLabel="#{mc.marca}" itemValue="#{mc.idMarca}"/>
+                                    </h:selectOneMenu>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -39,7 +48,7 @@
                         </h:panelGrid>
                         <p:commandButton actionListener="#{vehiculoController.registrarVehiculo()}" value="Regitrar"/>
 
-                    </h:form>
+                        </h:form></center>
 
                 </f:view>
             </ui:define>

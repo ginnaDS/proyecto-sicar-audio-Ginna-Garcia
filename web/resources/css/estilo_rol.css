@@ -1,6 +1,8 @@
 .tbl{
     width: 90%;
-    border: 1px solid #000;
+    alignment-adjust: text-after-edge;
+    border: 1px solid #5584ff;
+    
 }
 #prin{
     
@@ -313,7 +315,7 @@ li,ul{
     
     box-shadow: 0 1px 12px rgb(0, 0, 0);
     display: inline-block !important;
-    line-height: 23px;
+    line-height: 16px;
     padding: 20px;
     transition: all 0.5s ease 0s;
     width: 100%;
@@ -490,9 +492,9 @@ header {
     display: block;
     font-size: 17px;
     font-weight: 500;
-    padding: 35px 20px;
+    padding: 25px 30px;
     text-decoration: none;
-    padding-bottom: 25px;
+    padding-bottom: 10px;
 }
 
 .navi i {

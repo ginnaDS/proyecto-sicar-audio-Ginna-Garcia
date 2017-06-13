@@ -34,7 +34,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p"),
     @NamedQuery(name = "Producto.findByIdProducto", query = "SELECT p FROM Producto p WHERE p.idProducto = :idProducto"),
     @NamedQuery(name = "Producto.findByNroReferencia", query = "SELECT p FROM Producto p WHERE p.nroReferencia = :nroReferencia"),
-    @NamedQuery(name = "Producto.findByMarca", query = "SELECT p FROM Producto p WHERE p.marca = :marca"),
     @NamedQuery(name = "Producto.findByCantidad", query = "SELECT p FROM Producto p WHERE p.cantidad = :cantidad"),
     @NamedQuery(name = "Producto.findByNombre", query = "SELECT p FROM Producto p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Producto.findByPrecio", query = "SELECT p FROM Producto p WHERE p.precio = :precio")})
@@ -53,11 +52,6 @@ public class Producto implements Serializable {
     private String nroReferencia;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 25)
-    @Column(name = "marca")
-    private String marca;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "cantidad")
     private int cantidad;
     @Basic(optional = false)
@@ -69,13 +63,18 @@ public class Producto implements Serializable {
     @NotNull
     @Column(name = "precio")
     private double precio;
+    @Basic(optional = false)
+    @NotNull
     @Lob
-    @Size(max = 65535)
+    @Size(min = 1, max = 65535)
     @Column(name = "imagen")
     private String imagen;
     @JoinColumn(name = "idEstPro", referencedColumnName = "idEstPro")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private EstadoProducto idEstPro;
+    @JoinColumn(name = "idMarca", referencedColumnName = "idMarca")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private MarcaProducto idMarca;
 
     public Producto() {
     }
@@ -84,13 +83,13 @@ public class Producto implements Serializable {
         this.idProducto = idProducto;
     }
 
-    public Producto(Integer idProducto, String nroReferencia, String marca, int cantidad, String nombre, double precio) {
+    public Producto(Integer idProducto, String nroReferencia, int cantidad, String nombre, double precio, String imagen) {
         this.idProducto = idProducto;
         this.nroReferencia = nroReferencia;
-        this.marca = marca;
         this.cantidad = cantidad;
         this.nombre = nombre;
         this.precio = precio;
+        this.imagen = imagen;
     }
 
     public Integer getIdProducto() {
@@ -107,14 +106,6 @@ public class Producto implements Serializable {
 
     public void setNroReferencia(String nroReferencia) {
         this.nroReferencia = nroReferencia;
-    }
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
     }
 
     public int getCantidad() {
@@ -155,6 +146,14 @@ public class Producto implements Serializable {
 
     public void setIdEstPro(EstadoProducto idEstPro) {
         this.idEstPro = idEstPro;
+    }
+
+    public MarcaProducto getIdMarca() {
+        return idMarca;
+    }
+
+    public void setIdMarca(MarcaProducto idMarca) {
+        this.idMarca = idMarca;
     }
 
     @Override

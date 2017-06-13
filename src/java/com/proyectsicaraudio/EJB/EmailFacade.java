@@ -102,4 +102,25 @@ public class EmailFacade implements EmailFacadeLocal{
     public void envNotfCompra(Usuario user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void contactenos(Usuario us) {
+        try {
+            Email e=new Email();
+            e.setAsunto(e.getAsunto());
+            e.setMensaje(e.getMensaje());
+            Session session = e.getSession();
+            Message msj =new MimeMessage(session);
+            msj.setFrom(new InternetAddress(us.getCorreo()));
+            msj.setSubject(e.getAsunto());
+            msj.setContent(e.getMensaje(),"text/html");
+            msj.setRecipients(Message.RecipientType.TO, InternetAddress.parse(Email.getREMITENTE()));
+
+            Transport.send(msj);
+        } catch (AddressException ex) {
+            System.out.print("La direccion del correo ");
+        }catch (MessagingException ex){
+            System.out.print("se ha presentado un error");
+            ex.printStackTrace();
+        }}
     }

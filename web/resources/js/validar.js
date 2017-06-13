@@ -54,7 +54,7 @@ function validar(e) {
                 
          function placa(e){
              expr = /^([A-Z]{3})+([0-9]{3})+$/;
-             expr = /^([A-Z]{3})+([0-9]{3})+$/;
+//             expr = /^([A-Z]{3})+([0-9]{3})+$/;
                
          }       
 
@@ -66,10 +66,44 @@ function validar(e) {
 //        alert("Error: La dirección de correo " + email + " es incorrecta.");
 //}
 
-function validarEmail(valor) {
-  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/.test(valor)){
-   alert("La dirección de email " + valor + " es correcta.");
-  }else {
-   alert("La dirección de email es incorrecta.");
-  }
-}
+//function validarEmail(valor) {
+//  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/.test(valor)){
+//   alert("La dirección de email " + valor + " es correcta.");
+//  }else {
+//   alert("La dirección de email es incorrecta.");
+//  }
+//}
+//
+// public function aCar(){
+// var producto= $("#productos").value();
+//  var cant= $("#cantidad").val();
+//  if (producto==0) {
+//    alert(
+//        'Debe seleccionar algun producto'
+//        );
+//  }else{
+//    if (cant=="") {
+//        alert('Debe seleccionar alguna cantidad');
+//    }if (cant>5) {
+//      alert('Maximo 5 productos');
+//    }else{
+//  if (cant<=0) {
+//      alert('Minimo 1 producto');
+//    }else{
+//
+//
+//
+// 
+//     document.getElementById("Pr1").innerHTML ="";
+//
+//
+//  }
+// }
+//
+//
+//
+// 
+//
+// }
+//
+// }

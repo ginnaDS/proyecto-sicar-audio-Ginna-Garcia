@@ -6,9 +6,7 @@
 package com.proyectsicaraudio.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,12 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,7 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Carro.findAll", query = "SELECT c FROM Carro c"),
     @NamedQuery(name = "Carro.findByIdCarro", query = "SELECT c FROM Carro c WHERE c.idCarro = :idCarro"),
     @NamedQuery(name = "Carro.findByModelo", query = "SELECT c FROM Carro c WHERE c.modelo = :modelo"),
-    @NamedQuery(name = "Carro.findByMarca", query = "SELECT c FROM Carro c WHERE c.marca = :marca"),
     @NamedQuery(name = "Carro.findByPlaca", query = "SELECT c FROM Carro c WHERE c.placa = :placa")})
 public class Carro implements Serializable {
 
@@ -49,24 +44,20 @@ public class Carro implements Serializable {
     private Integer idCarro;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 3, max = 15)
+    @Size(min = 1, max = 15)
     @Column(name = "modelo")
     private String modelo;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 4, max = 15)
-    @Column(name = "marca")
-    private String marca;
-    @Basic(optional = false)
-    @NotNull
-    @Size( max = 6)
+    @Size(min = 1, max = 8)
     @Column(name = "placa")
     private String placa;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCarro", fetch = FetchType.LAZY)
-    private List<Cita> citaList;
     @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario idUsuario;
+    @JoinColumn(name = "idMarca", referencedColumnName = "idMarca")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Marca idMarca;
 
     public Carro() {
     }
@@ -75,10 +66,9 @@ public class Carro implements Serializable {
         this.idCarro = idCarro;
     }
 
-    public Carro(Integer idCarro, String modelo, String marca, String placa) {
+    public Carro(Integer idCarro, String modelo, String placa) {
         this.idCarro = idCarro;
         this.modelo = modelo;
-        this.marca = marca;
         this.placa = placa;
     }
 
@@ -98,14 +88,6 @@ public class Carro implements Serializable {
         this.modelo = modelo;
     }
 
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
     public String getPlaca() {
         return placa;
     }
@@ -114,21 +96,20 @@ public class Carro implements Serializable {
         this.placa = placa;
     }
 
-    @XmlTransient
-    public List<Cita> getCitaList() {
-        return citaList;
-    }
-
-    public void setCitaList(List<Cita> citaList) {
-        this.citaList = citaList;
-    }
-
     public Usuario getIdUsuario() {
         return idUsuario;
     }
 
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public Marca getIdMarca() {
+        return idMarca;
+    }
+
+    public void setIdMarca(Marca idMarca) {
+        this.idMarca = idMarca;
     }
 
     @Override

@@ -183,17 +183,14 @@ public class prefacturaController implements Serializable {
     }
     
     public void exportarPdf() throws JRException, IOException{
-        Usuario u=(Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("us");
         Map<String,Object> parametros= new HashMap<String,Object>();
         //parametros.put("txtProductos", u.getPrimerNombre());
-        parametros.put("txtProductos", u.getNombreUsuario());
-        System.out.println(u.getPrimerNombre());
         
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/rptJR.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),null, new JRBeanCollectionDataSource(this.getProductos()));
         
        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-       response.addHeader("Content-disposition", "attachment; filename=jsfReporte.pdf");
+       response.addHeader("Content-disposition", "attachment; filename=CatalogoMA.pdf");
        ServletOutputStream stream = response.getOutputStream();
      
         JasperExportManager.exportReportToPdfStream(jasperPrint,stream);

@@ -17,6 +17,7 @@ import com.proyectsicaraudio.model.Prefactura;
 import com.proyectsicaraudio.model.Producto;
 import com.proyectsicaraudio.model.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +28,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -41,12 +43,12 @@ public class pedidoController implements Serializable {
 
     @EJB
     private PedidoFacadeLocal pedidoFl;
-    
+
     @EJB
     private PrefacturaFacadeLocal prefacturaLocal;
-    
+
     private boolean bloqueo;
-            
+
     @Inject
     private Prefactura prefactura;
     @Inject
@@ -61,9 +63,8 @@ public class pedidoController implements Serializable {
     @EJB
     private DetallespedidoFacadeLocal detalleFl;
 
-    
     private Date fecha;
-    
+
     private List<Producto> productosSel;
 
     private List<Producto> productos;
@@ -124,11 +125,11 @@ public class pedidoController implements Serializable {
     public void setDetallespedido(List<Detallespedido> detallespedido) {
         this.detallespedido = detallespedido;
     }
-    
-     public boolean inactivo(){
-            return bloqueo = true;
+
+    public boolean inactivo() {
+        return bloqueo = true;
     }
-    
+
     public boolean isBloqueo() {
         return bloqueo;
     }
@@ -144,8 +145,6 @@ public class pedidoController implements Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
-    
 
     @PostConstruct
     public void init() {
@@ -153,7 +152,6 @@ public class pedidoController implements Serializable {
         productosSel = new LinkedList<>();
         detallespedido = new LinkedList<>();
     }
-
 
     //Hice un metodo que se llama calcular
     //Ese metodo tiene dos variables una Double precio, osea que se llama precio y es de tipo Double
@@ -187,7 +185,7 @@ public class pedidoController implements Serializable {
     public void añadir() {
         Producto p;
         p = productoFl.find(producto.getIdProducto());
-            System.out.println(producto.getIdProducto()+"///////////////:............");
+        System.out.println(producto.getIdProducto() + "///////////////:............");
         productosSel.add(p);
         System.out.println(productosSel.size());
     }
@@ -219,61 +217,74 @@ public class pedidoController implements Serializable {
     }
 
     public void registrarPedido() {
+        RequestContext context = RequestContext.getCurrentInstance();
         try {
-           //Se crea una variable tipo pedido
-        Pedido pedido = new Pedido();
-        //Se crea una variable date
-        Date fecha = new Date();
-        //Se le agrega la fecha al pedido con la variable tipo date
-        pedido.setFecha(fecha);
-        
-        
-        pedido.setIdCliente(cliente);
+            //Se crea una variable tipo pedido
+            Pedido pedido = new Pedido();
+            //Se crea una variable date
+            Date fecha = new Date();
+            //Se le agrega la fecha al pedido con la variable tipo date
+            pedido.setFecha(fecha);
 
-        Estadopedido estadoPedido = new Estadopedido();
-        estadoPedido.setIdEstadoPe(14);
-        pedido.setIdEstadoPe(estadoPedido);
+            pedido.setIdCliente(cliente);
 
-        for (Detallespedido d : detallespedido) {
-            d.setIdPedido(pedido);
-        }
-        pedido.setDetallespedidoList(detallespedido);
-        Usuario user = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("us");
-        cliente = pedidoFl.pedidosCliente(user);
-        pedido.setIdCliente(cliente);
-        pedidoFl.create(pedido);
-        registrarPre(fecha, pedido);
-       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Aviso"),
-           ("PedidoRegistradoExitosamente")));  
+            Estadopedido estadoPedido = new Estadopedido();
+            estadoPedido.setIdEstadoPe(14);
+            pedido.setIdEstadoPe(estadoPedido);
+
+            for (Detallespedido d : detallespedido) {
+                d.setIdPedido(pedido);
+            }
+            pedido.setDetallespedidoList(detallespedido);
+            Usuario user = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("us");
+            cliente = pedidoFl.pedidosCliente(user);
+            pedido.setIdCliente(cliente);
+            pedidoFl.create(pedido);
+            registrarPre(fecha, pedido);
+            descontarCantidad();
+            detallespedido = new ArrayList();
+            context.execute("swal('Registro exitoso','Tu pedido esta en proceso','success')");
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Error"),
-            ("NoSeHaRegistrado")));
+            context.execute("swal('Ha ocurrido un error','Intentalo mas tarde','error')");
         }
-       
-        
+
     }
-    
-    public double calcularT(Pedido pedido){
-        double total=0.0;
+
+    public double calcularT(Pedido pedido) {
+        double total = 0.0;
         for (Detallespedido d : pedido.getDetallespedidoList()) {
-            total+=d.getPrecioProducto();
+            total += d.getPrecioProducto();
         }
         return total;
     }
-    
-    public void registrarPre(Date feh,Pedido pedido){
+
+    public void registrarPre(Date feh, Pedido pedido) {
         try {
-        prefactura.setFechaEnvio(fecha);
-        prefactura.setFecha(feh);
-           double total= calcularT(pedido);
-        prefactura.setIdPedido(pedido);
-        prefactura.setValorTotal(total);
-        prefacturaLocal.create(prefactura);
+            prefactura.setFechaEnvio(fecha);
+            prefactura.setFecha(feh);
+            double total = calcularT(pedido);
+            prefactura.setIdPedido(pedido);
+            prefactura.setValorTotal(total);
+            prefacturaLocal.create(prefactura);
+
         } catch (Exception e) {
+
         }
     }
-    
 
-    
-    
+    public void descontarCantidad() {
+        try {
+            for (Detallespedido dp: detallespedido) {
+                for (Producto p : productos) {
+                    if (dp.getIdProducto().getIdProducto().intValue()==p.getIdProducto()) {
+                        p.setCantidad(p.getCantidad()-dp.getCantidadProducto());
+                         productoFl.edit(p);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

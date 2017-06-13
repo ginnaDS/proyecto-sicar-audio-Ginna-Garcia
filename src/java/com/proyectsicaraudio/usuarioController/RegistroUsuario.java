@@ -16,6 +16,7 @@ import com.proyectsicaraudio.model.Estadousuario;
 import com.proyectsicaraudio.model.Rol;
 import com.proyectsicaraudio.model.Usuario;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
@@ -25,6 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -43,6 +45,9 @@ public class RegistroUsuario implements Serializable{
     private EstadousuarioFacadeLocal estadoLocal;
     @EJB
     private ClienteFacadeLocal clienteEJB;
+    
+    private boolean bloquear;
+    
     @Inject
     private Rol rol;
     @Inject
@@ -50,6 +55,7 @@ public class RegistroUsuario implements Serializable{
     private Email email;
     @Inject
     private Usuario usuario;
+    private List<Usuario> usuarios;
     @Inject
     private Cliente cliente;
     
@@ -57,8 +63,29 @@ public class RegistroUsuario implements Serializable{
     private ResourceBundle rb;
     @PostConstruct
     public void init(){
+        usuarios = usuariofl.findAll();
         facesContext = FacesContext.getCurrentInstance();
         rb =facesContext.getApplication().getResourceBundle(facesContext, "msjUsua");
+    }
+
+    public boolean isBloquear() {
+        return bloquear;
+    }
+    
+    public boolean inactivo(){
+        return bloquear = true;
+    }
+
+    public void setBloquear(boolean bloquear) {
+        this.bloquear = bloquear;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
     public EstadousuarioFacadeLocal getEstadoLocal() {
@@ -117,6 +144,7 @@ public class RegistroUsuario implements Serializable{
     }
     
     public void registarUsuario(){
+        RequestContext context = RequestContext.getCurrentInstance();
         try{
             estado.setIdEstadoUs(1);
             usuario.setIdEstadoUs(estado);
@@ -125,16 +153,15 @@ public class RegistroUsuario implements Serializable{
             usuariofl.create(usuario);
             cliente.setIdUsuario(usuario);
             clienteEJB.create(cliente);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Bienvenido"),
-            ("TeDamosLaBienvenida")));
+            context.execute("swal('Bienvenido','Te has registrado exitosamente','success')");
             emailfl.enviarEmailRegistro(usuario);
         }catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Error"),
-            ("IntentaloNuevamente")));
+            context.execute("swal('Lo sentimos','Intentalo nuevamente','error')");
         }
 }
     
       public void registrarAdmin(){
+          RequestContext context = RequestContext.getCurrentInstance();
       try {
         String cadena = claveAleatoria(6);
         usuario.setContrasenia(cadena);
@@ -144,17 +171,16 @@ public class RegistroUsuario implements Serializable{
         usuario.setIdRol(rol);
         usuariofl.create(usuario); 
         emailfl.envEmailRegistroT(usuario);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Aviso"),
-            ("SeHaRegistradoExitosamente")));
+         context.execute("swal('Bienvenido','Te has registrado exitosamente','success')");
     } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Error"),
-            ("NoSeHaPodidoRegistrar")));
+            context.execute("swal('Lo sentimos','Intentalo nuevamente','error')");
         }
        
     }
       
       
       public void registrarTecnico(){
+          RequestContext context = RequestContext.getCurrentInstance();
        try {
         String cadena = claveAleatoria(6);
         usuario.setContrasenia(cadena);
@@ -164,11 +190,9 @@ public class RegistroUsuario implements Serializable{
         usuario.setIdRol(rol);
         usuariofl.create(usuario);  
         emailfl.envEmailRegistroT(usuario);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Aviso"),
-            ("SeHaRegistradoExitosamente")));
+        context.execute("swal('Bienvenido','Te has registrado exitosamente','success')");
     } catch (Exception e) {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Error"),
-            ("NoSeHaPodidoRegistrar")));
+         context.execute("swal('Lo sentimos','Intentalo nuevamente','error')");
         }
        
     }
