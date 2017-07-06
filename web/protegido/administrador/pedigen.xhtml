@@ -11,18 +11,18 @@
         <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
 
             <ui:define name="content">
-                <f:view>
-                <ol class="breadcrumb migaR" >
-                      <li><a href="principal.xhtml" data-toggle="tab" aria-hidden="true">Inicio</a></li>
-                    
-                      <li class="active"><a href="pedigen.xhtml">Pedidos</a></li>
-                    </ol>
-                </f:view>
+                <ul class="nav nav-tabs" role="tablist" style="width: 1000px; height: 50px">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Confirmar pedidos</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Ventas</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home"  >
+                        
                 
-                     <center> <h:form id="form">
-                    <center><h1><h:outputText value="Cambiar estado de los pedidos"/> </h1></center>
-                    
-                    <p:dataTable class="tbl" value="#{pedController.pedidos}" paginator="true" rendered="true" var="ped"  rows="5">
+                     <center> <h:form id="formularioConfirm">
+                    <p:dataTable class="tbl" value="#{pedController.pedidos}" paginator="true" rendered="true" var="ped"  rows="5" id="tabla">
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Codigo Pedido"/>
@@ -50,30 +50,63 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Cambiar Estado"/>
+                                <h:outputText value="Confirmar pedido"/>
                             </f:facet>
-                            <p:commandButton onclick="PF('estado').show()" update=":cam" actionListener="#{pedController.cambiarEs(ped)}" value="Cambiar"/>
+                            <p:commandButton actionListener="#{pedController.actualizar(ped)}" icon="ui-icon-check" >
+                                <f:ajax execute="@form" render="formularioConfirm:"/>
+                            </p:commandButton>
+                            <p:commandButton onclick="PF('ver').show()" update=":cam" actionListener="#{pedController.cambiarEs(ped)}" icon="ui-icon-eye"/>
                         </p:column>
                     </p:dataTable>
                     </h:form></center>
-                <p:dialog widgetVar="estado">
-                    <h:form id="cam">
-                        <h:panelGrid columns="2">
-                        <h:outputLabel value="Fecha de solicitud:"/>
-                        <p:outputLabel value="#{pedController.pedido.fecha}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </p:outputLabel>
-                        <h:outputLabel value="Cliente:"/>
-                        <p:outputLabel value="#{pedController.pedido.idCliente.idUsuario.nombreUsuario}"/>
-                        <h:outputLabel value="Estado:"/>
-                        <h:selectOneMenu id="idEstadoPe" value="#{pedController.estado.idEstadoPe}" >
-                                <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
-                                <f:selectItems value="#{pedController.estados}" var="est" itemLabel="#{est.tipoEstadoP}" itemValue="#{est.idEstadoPe}"/>
-                            </h:selectOneMenu>
-                        </h:panelGrid>
-                        <p:commandButton value="Guardar Cambios" actionListener="#{pedController.actualizar()}" update=":form"/>
-                    </h:form>
+                
+                <p:dialog widgetVar="ver">
+                    <f:view>
+
+
+                        <h:form id="cam">
+                            <h1><h:outputText value="Detalles"/></h1>
+                            <p:dataTable value="#{pedController.detalles}" var="item">
+                                
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Cantidad productos"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.cantidadProducto}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Descripcion"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.descripcion}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Precio"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.precioProducto}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Producto"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idProducto.nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="IdPedido"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idPedido}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </f:view>
+
                 </p:dialog>
+                         </div>
+
+
+                </div>
                </ui:define>
 
         </ui:composition>

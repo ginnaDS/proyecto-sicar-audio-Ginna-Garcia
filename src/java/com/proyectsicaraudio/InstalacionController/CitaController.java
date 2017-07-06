@@ -42,6 +42,7 @@ public class CitaController implements Serializable{
     private EstadocitaFacadeLocal estCiLocal;
     @Inject
     private Cita cita;
+    private List<Cita> citas;
     @Inject
     private Carro carro;
     private List<Carro> carros;
@@ -54,11 +55,19 @@ public class CitaController implements Serializable{
 //  private ResourceBundle rb;
      @PostConstruct
     public void init(){
-       
+       citas = citaLocal.citasCliente();
         carros = carroLocal.carrosUsuario();
 //        facesContext = FacesContext.getCurrentInstance();
 //        rb =facesContext.getApplication().getResourceBundle(facesContext, "msjIns");
      //   citas = citaLocal.citasTecnico();
+    }
+
+    public List<Cita> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(List<Cita> citas) {
+        this.citas = citas;
     }
 
    
@@ -135,28 +144,60 @@ public class CitaController implements Serializable{
         this.estCita = estCita;
     }
     
+    
+    public boolean comp(){
+        for (Cita carro1 : citas) {
+            if (carro1.getIdEstadoCi().getIdEstadoCi()==3) {
+                    return false;
+                }
+                
+            }return true;
+                    }
+    
     public void registrarCita(){
+        
         System.out.println("registrar");
         RequestContext context = RequestContext.getCurrentInstance();
+        
         try {
+            if (comp()) {
+                
             cita.setIdCarro(carro);
             estCita.setIdEstadoCi(3);
             cita.setIdEstadoCi(estCita);
             citaLocal.create(cita);
+                System.out.println("se registro bien :S");
         context.execute("swal('Tu cita','Se registro exitosamente','success')");
+            }else{
+                context.execute("swal('Este vehiculo','cuenta con una cita activa','warning')");
+            }
 
         } catch (Exception e) {
             System.out.println(e.getMessage()+"");
         context.execute("swal('Lo sentimos','Intentalo nuevamene','error')");
         }
+        
             
     }
     //p: message id="mensaje" autoupdate="false" severity="info, fatal" showSummary="true" showDetail="true"
     public void eliminar(Cita ct){
-        try {
-        citaLocal.remove(ct);
             RequestContext context = RequestContext.getCurrentInstance();
-        context.execute("swal('Eliminada!', 'con exito','success')");
+        try {
+           cita = citaLocal.find(ct.getIdCita());
+            cita.setIdEstadoCi(estCiLocal.find(2));
+            citaLocal.edit(cita);
+            context.execute("swal('Su cita', 'se aplazo','success')");
+        } catch (Exception e) {
+        }
+    }
+    
+    public void cancelarcita(Cita c){
+         RequestContext context = RequestContext.getCurrentInstance();
+         try {
+            cita = citaLocal.find(c.getIdCita());
+            cita.setIdEstadoCi(estCiLocal.find(1));
+            citaLocal.edit(cita);
+            context.execute("swal('Su cita', 'se cancelo','success')");
         } catch (Exception e) {
         }
     }

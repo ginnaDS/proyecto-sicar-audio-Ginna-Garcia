@@ -12,16 +12,11 @@
         <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
 
             <ui:define name="content">
-                <ol class="breadcrumb migaR" >
-                      <li><a href="principal.xhtml" data-toggle="tab" aria-hidden="true">Inicio</a></li>
-                    
-                      <li class="active"><a href="evento.xhtml">Eventos</a></li>
-                      </ol>
                 <f:view>
 
-                    <h:form enctype="multipart/form-data"  pi:method="post">
+                    <center><h:form enctype="multipart/form-data"  pi:method="post">
 
-
+                        <h1>Añadir eventos</h1>
 
                         <h:panelGrid columns="3">
                             <p:growl autoUpdate="true" showDetail="true"/>
@@ -29,7 +24,7 @@
 
 
                             <h:outputLabel for="nombre" value="Nombre:"/>
-                            <p:inputText id="nombre" required="false"  value="#{eventoController.evento.nombre}" 
+                            <h:inputText class="form-control" id="nombre" required="false"  value="#{eventoController.evento.nombre}" 
                                          requiredMessage="Digite el nombre del evento"/>
                             <p:message for="nombre"/>
 
@@ -39,24 +34,22 @@
                             <h:column />
                             
                             <h:outputLabel for="descripcion" value="descripcion:"/>
-                            <p:inputText id="descripcion" required="false"  value="#{eventoController.evento.descripcion}" 
+                            <h:inputText class="form-control" id="descripcion" required="false"  value="#{eventoController.evento.descripcion}" 
                                          requiredMessage="Digite descripcion del evento"/>
                             <p:message for="descripcion"/>
 
-                            <h:outputLabel value="Poster" for="poster"/>
-                            <h:inputFile value="#{fotoEvento}" id="poster"/>
-
                             <h:outputLabel for="lugar" value="Lugar:"/>
-                            <p:inputText id="lugar" required="false"  value="#{eventoController.evento.lugar}" 
+                            <h:inputText class="form-control" id="lugar" required="false"  value="#{eventoController.evento.lugar}" 
                                          requiredMessage="Digite el lugar del evento"/>
                             <p:message for="lugar"/>
-                            
-
+                            <h:outputLabel value="Poster" for="poster"/>
+                            <h:inputFile value="#{fotoEvento}" id="poster"/>
                             <h:column/>
-                            <h:commandButton value="realizar evento" action="#{eventoController.asignarEvento(fotoEvento)}" type="submit"/>
+                            <br/>
                         </h:panelGrid>
+                            <h:commandButton value="realizar evento" action="#{eventoController.asignarEvento(fotoEvento)}" type="submit"/>
 
-                    </h:form>
+                        </h:form></center>
                 </f:view>
 
             </ui:define>

@@ -6,6 +6,7 @@
 package com.proyectsicaraudio.EJB;
 
 import com.proyectsicaraudio.model.Detallespedido;
+import com.proyectsicaraudio.model.Pedido;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,7 @@ public interface DetallespedidoFacadeLocal {
     List<Detallespedido> findRange(int[] range);
 
     int count();
+    
+    List<Detallespedido> detallesPedido(Pedido pedido);
     
 }

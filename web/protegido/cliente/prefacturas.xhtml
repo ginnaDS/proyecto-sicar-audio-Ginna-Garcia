@@ -19,7 +19,7 @@
 
                     <h:form style="text-align: left;">
                        
-                           <p:dataTable class="tbl" style="width: 90%;" value="#{prefacturaController.pedidos}" var="item">
+                        <p:dataTable class="tbl" style="width: 90%;" paginator="true" rows="6" value="#{prefacturaController.pedidos}" var="item">
                             <p:column id="tab">
                                 <f:facet name="header">
                                     <h:outputText value="Codigo"/>

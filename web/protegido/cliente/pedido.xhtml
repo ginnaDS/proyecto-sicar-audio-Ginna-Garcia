@@ -16,80 +16,72 @@
 
             <ui:define name="content">
                 <center><h3>Registra tu pedido</h3></center>
-                <br/>
                 <center><h:panelGrid columns="1">
                         <h:form id="fecha">
-                            <h3>Fecha para recibir tu pedido</h3>
+                            <h:panelGrid columns="2">
+                                <h:column>
+                            <h3>Fecha para recibir tu pedido: &nbsp;&nbsp;</h3>
+                                </h:column>
+                                <h:column>
                             <p:calendar title="Al seleccionar la fecha te aparecera el formulario para solicitar tu pedido" id="fechaE" value="#{pedidoController.fecha}" mindate="Date" maxdate="Date+15" required="true" p:placeholder="Fecha" requiredMessage="El campo fecha es requerido" disabled="#{pedidoController.bloqueo}" />
                             <p:commandButton value="Seleccionar Productos" onclick="PF('dlg').show();" 
                                              actionListener="#{pedidoController.inactivo()}" disabled="#{pedidoController.bloqueo}" 
                                              update=":otrosdatos" id="btn" process="fechaE"/>
-
-
+                                </h:column>
+                            </h:panelGrid>
                         </h:form>
                         <h:panelGroup id="otrosdatos">
                             <h:form id="forOtrosDatos" rendered="#{not empty pedidoController.fecha}">
-                                <h:panelGrid columns="1"  >
-                                    <h:outputLabel value="Fecha de entrega:  "/>
-
-
-                                    <h:outputLabel value="Producto"/>
-                                    <h:selectOneMenu value="#{pedidoController.producto.idProducto}">
+                                <h:panelGrid columns="2"  >
+                                    <h:outputLabel value="Producto:&nbsp;&nbsp;&nbsp;&nbsp; "/>
+                                    <h:selectOneMenu class="form-control" value="#{pedidoController.producto.idProducto}">
                                         <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
-                                        <f:selectItems value="#{pedidoController.productos}" var="producto" itemLabel="#{producto.nombre}_#{producto.marca}" itemValue="#{producto.idProducto}" />
+                                        <f:selectItems value="#{pedidoController.productos}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto.idProducto}" />
                                     </h:selectOneMenu>
 
 
-                                    <h:outputLabel value="Cantidad"/>
-                                    <p:inputText maxlength="1" value="#{pedidoController.detallePedido.cantidadProducto}" onkeypress="return solonumeros(event)" required="true"/>
+                                    <h:outputLabel value="Cantidad:&nbsp;&nbsp;&nbsp;&nbsp;"/>
+                                    <h:inputText maxlength="1" class="form-control" value="#{pedidoController.detallePedido.cantidadProducto}" onkeypress="return solonumeros(event)" required="true"/>
 
-                                    <h:outputLabel value="Descripcion"/>
-                                    <p:inputTextarea value="#{pedidoController.detallePedido.descripcion}"/>
+                                    <h:outputLabel value="Descripcion:&nbsp;&nbsp;&nbsp;&nbsp;"/>
+                                    <h:inputTextarea class="form-control" value="#{pedidoController.detallePedido.descripcion}"/>
 
 
                                     <p:commandLink value="añadir" actionListener="#{pedidoController.registrar()}" update=":listaDet"/>
 
                                 </h:panelGrid>
-                                <p:commandButton value="Guardar" actionListener="#{pedidoController.registrarPedido()}" />
+                                <p:commandButton value="Guardar" actionListener="#{pedidoController.registrarPedido()}" ajax="false"/>
 
                             </h:form>
                             <f:view>
-
-
                                 <h:form id="listaDet"  rendered="#{not empty pedidoController.fecha}">
-                                    <h1><h:outputText value="List"/></h1>
-                                    <h:dataTable value="#{pedidoController.detallespedido}" var="item">
-                                        <h:column>
+                                    <h4><h:outputText value="Productos seleccionados"/></h4>
+                                    <p:dataTable value="#{pedidoController.detallespedido}" style="width: 600px" var="item">
+                                        <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="IdDetPedido"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.idDetPedido}"/>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="CantidadProducto"/>
+                                                <h:outputText value="Cantidad"/>
                                             </f:facet>
                                             <h:outputText value="#{item.cantidadProducto}"/>
-                                        </h:column>
-                                        <h:column>
+                                        </p:column>
+                                        <p:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Descripcion"/>
                                             </f:facet>
                                             <h:outputText value="#{item.descripcion}"/>
-                                        </h:column>
-                                        <h:column>
+                                        </p:column>
+                                        <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="PrecioProducto"/>
+                                                <h:outputText value="Precio"/>
                                             </f:facet>
                                             <h:outputText value="#{item.precioProducto}"/>
-                                        </h:column>
-                                        <h:column>
+                                        </p:column>
+                                        <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="IdProducto"/>
+                                                <h:outputText value="Producto"/>
                                             </f:facet>
                                             <h:outputText value="#{item.idProducto.nombre}"/>
-                                        </h:column>
-                                    </h:dataTable>
+                                        </p:column>
+                                    </p:dataTable>
                                 </h:form>
                             </f:view>
 
@@ -99,10 +91,6 @@
 
 
                 </center>
-                
-                <h:form>
-                    <h:commandButton value="Catalogo" actionListener="#{prefacturaController.exportarPdf()}"/>
-                </h:form>
             </ui:define>
 
         </ui:composition>

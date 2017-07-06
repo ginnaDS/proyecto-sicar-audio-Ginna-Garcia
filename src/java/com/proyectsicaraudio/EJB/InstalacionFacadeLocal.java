@@ -30,4 +30,6 @@ public interface InstalacionFacadeLocal {
     List<Instalacion> findRange(int[] range);
 
     int count();
+    
+    List<Instalacion> instalacionesTecnico();
 }

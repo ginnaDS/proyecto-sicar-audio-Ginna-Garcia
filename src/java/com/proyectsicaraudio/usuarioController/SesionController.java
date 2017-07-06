@@ -18,6 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -106,11 +107,13 @@ public class SesionController implements Serializable{
     }
     
    public void guardarCambios(){
+        RequestContext context = RequestContext.getCurrentInstance();
        try {
+           
            usuarioLocal.edit(usuario);
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso"
-                    , "Se actualizo correctamente"));
+           context.execute("swal('Datos','actualizados correctamente','success')");
        } catch (Exception e) {
+           System.out.println(usuario);
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Aviso", e.getCause().getMessage()));
        }
    }
@@ -141,11 +144,11 @@ public class SesionController implements Serializable{
          Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("us");
          
          switch(us.getGenero()){
-             case "F": color= "#f00";
+             case "F": color= "#ffffff";
              break;
-             case "M": color= "#0f0";
+             case "M": color= "#ffffff";
              break;
-             case "O": color= "#00f";
+             case "O": color= "#ffffff";
              break;
              
          }

@@ -6,9 +6,12 @@
 package com.proyectsicaraudio.EJB;
 
 import com.proyectsicaraudio.model.Detallespedido;
+import com.proyectsicaraudio.model.Pedido;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +31,22 @@ public class DetallespedidoFacade extends AbstractFacade<Detallespedido> impleme
     public DetallespedidoFacade() {
         super(Detallespedido.class);
     }
+
+    @Override
+    public List<Detallespedido> detallesPedido(Pedido pedido) {
+        String consulta;
+        List<Detallespedido> lista;
+        try {
+            consulta="FROM Detallespedido d WHERE d.idPedido=?1";
+            Query query= getEntityManager().createQuery(consulta);
+            query.setParameter(1, pedido);  
+            
+            lista=query.getResultList();
+        } catch (Exception e) {
+            throw e;
+        }
+        return lista;
+    }
     
 }
+

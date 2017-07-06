@@ -23,12 +23,6 @@
                             <p:dataTable class="tbl" value="#{instalacionController.citas}" var="item">
                                 <p:column>
                                     <f:facet name="header">
-                                        <h:outputText value="Cita"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.idCita}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
                                         <h:outputText value="Fecha"/>
                                     </f:facet>
                                     <h:outputText value="#{item.fecha}">
@@ -53,11 +47,27 @@
                                     </f:facet>
                                     <h:outputText value="#{item.idEstadoCi.tipoEstadoC}"/>
                                 </p:column>
-                                
+                                 <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Resultado"/>
+                                    </f:facet>
+                                     <p:commandButton icon="ui-icon-pencil" onclick="PF('cambio').show()" update=":lista" actionListener="#{instalacionController.capturarCita(item)}"/>
+                            </p:column>
                             </p:dataTable>
                         </h:form>
 
-                </center>      
+                </center> 
+                <p:dialog widgetVar="cambio">
+                    <h:form id="lista">
+                        <h1><h:outputText value="Resultado instalación"/></h1>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Resultado:" for="resultado" />
+                            <h:inputTextarea class="form-control" rows="4" cols="30" id="resultado" value="#{instalacionController.inta.resultado}" title="En este campo se pondra un informe detallado del resultado de la instalación" required="true"/>
+                            <h:column/> 
+                            <p:commandButton value="Registrar" actionListener="#{instalacionController.editar()}" onclick="PF('cambio').hide()"/>
+                        </h:panelGrid>
+                    </h:form>
+                </p:dialog>
             </ui:define>
 
         </ui:composition>

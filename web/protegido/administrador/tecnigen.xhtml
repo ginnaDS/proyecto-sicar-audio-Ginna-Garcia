@@ -2,25 +2,91 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
     <body>
 
         <ui:composition template="./../../WEB-INF/protegido/clienteTemplate.xhtml">
 
             <ui:define name="content">
-                 <f:view>
-                <ol class="breadcrumb migaR" >
-                      <li><a href="principal.xhtml" data-toggle="tab" aria-hidden="true">Inicio</a></li>
-                    
-                      <li class="active"><a href="tecnigen.xhtml">Tecnicos</a></li>
-                    </ol>
-                </f:view>
                 
-                <a href="registrartecnico.xhtml"><button type="button" class="btn btn-primary btn-lg btn-block">Registrar Tecnico</button></a>
-                <br/>
-                <a href="tecem.xhtml"><button type="button" class="btn btn-primary btn-lg btn-block">Tecnicos de la empresa</button></a>
-                
+                <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist" style="width: 1000px; height: 50px">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Registrar tecnico</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Tecnicos de la empresa</a></li>
+    </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+        <center> <h:form>
+                        <h:panelGrid columns="4">
+                            <p:outputLabel value="Primer Nombre:" for="primerNombre" />
+                            <h:inputText class="form-control" id="primerNombre" value="#{registroUsuario.usuario.primerNombre}" onkeypress="return sololetras(event)" title="PrimerNombre" required="true" requiredMessage="Primer nombre"/>
+                            <p:outputLabel value="Segundo Nombre:" for="segundoNombre" />
+                            <h:inputText class="form-control" id="segundoNombre" value="#{registroUsuario.usuario.segundoNombre}" onkeypress="return sololetras(event)" title="SegundoNombre" />
+                            <p:outputLabel value="Primer Apellido:" for="primerApellido" />
+                            <h:inputText class="form-control" id="primerApellido" value="#{registroUsuario.usuario.primerApellido}" onkeypress="return sololetras(event)" title="PrimerApellido" required="true" requiredMessage="Primer Apellido"/>
+                            <p:outputLabel value="Segundo Apellido:" for="segundoApellido" />
+                            <h:inputText class="form-control" id="segundoApellido" value="#{registroUsuario.usuario.segundoApellido}" onkeypress="return sololetras(event)" title="SegundoApellido" />
+                            <p:outputLabel value="Correo:" for="correo" />
+                            <h:inputText class="form-control" id="correo" value="#{registroUsuario.usuario.correo}" title="Correo" required="true" requiredMessage="Correo"/>
+                            <p:outputLabel value="Telefono:" for="telefono" />
+                            <h:inputText class="form-control" id="telefono" value="#{registroUsuario.usuario.telefono}" onkeypress="return solonumeros(event)" title="Telefono" required="true" requiredMessage="Telefono"/>
+                            <p:outputLabel value="Cc:" for="cc" />
+                            <h:inputText class="form-control" id="cc" value="#{registroUsuario.usuario.cc}" onkeypress="return solonumeros(event)" title="Cc" required="true" requiredMessage="Identificacion"/>
+                            <p:outputLabel value="Nombre Usuario:" for="nombreUsuario" />
+                            <h:inputText class="form-control" id="nombreUsuario" value="#{registroUsuario.usuario.nombreUsuario}" title="NombreUsuario" required="true" requiredMessage="Nombre usuario"/>
+                            
+                            </h:panelGrid>
+                <p:commandButton value="Registrar" actionListener="#{registroUsuario.registrarTecnico()}" ajax="false"/>
+                    </h:form></center></div>
+      
+      
+    <div role="tabpanel" class="tab-pane" id="profile">
+        
+         <h:form>
+                        <p:dataTable value="#{asignacionController.TraerUser()}" var="item">
+                            
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="PrimerNombre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.primerNombre}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="PrimerApellido"/>
+                                </f:facet>
+                                <h:outputText value="#{item.primerApellido}"/>
+                            </p:column>
+                             <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Correo"/>
+                                </f:facet>
+                                <h:outputText value="#{item.correo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Telefono"/>
+                                </f:facet>
+                                <h:outputText value="#{item.telefono}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="NombreUsuario"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombreUsuario}"/>
+                            </p:column>
+                            
+                            </p:dataTable>
+                    </h:form>
+                        
+</div>
+  </div>
+
             </ui:define>
 
         </ui:composition>

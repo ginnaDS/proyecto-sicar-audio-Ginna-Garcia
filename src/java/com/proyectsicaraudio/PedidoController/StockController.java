@@ -6,9 +6,11 @@
 package com.proyectsicaraudio.PedidoController;
 
 import com.proyectsicaraudio.EJB.EstadopedidoFacadeLocal;
+import com.proyectsicaraudio.EJB.EventoFacadeLocal;
 import com.proyectsicaraudio.EJB.PedidoFacadeLocal;
 import com.proyectsicaraudio.EJB.ProductoFacadeLocal;
 import com.proyectsicaraudio.model.Estadopedido;
+import com.proyectsicaraudio.model.Evento;
 import com.proyectsicaraudio.model.Pedido;
 import com.proyectsicaraudio.model.Producto;
 import java.io.Serializable;
@@ -29,20 +31,34 @@ public class StockController implements Serializable{
     @EJB
     private ProductoFacadeLocal prodLocal;
     @EJB
-    private EstadopedidoFacadeLocal estPedLocal;
-    @EJB
-    private PedidoFacadeLocal pedidoLocal;
+    private EventoFacadeLocal eventLocal;
+    @Inject
+    private Evento evento;
+    private List<Evento> eventos;
     @Inject
     private Producto producto;
-    @Inject
-    private Pedido pedido;
-    private List<Pedido> pedidos;
-    @Inject
-    private Estadopedido estado;
+    private List<Producto> productos;
     
     @PostConstruct
     public void init(){
-//        pedidos = descontarCantidad();
+        eventos = eventLocal.findAll();
+        productos = prodLocal.findAll();
+    }
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+
+    public List<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(List<Evento> eventos) {
+        this.eventos = eventos;
     }
 
     public Producto getProducto() {
@@ -53,43 +69,11 @@ public class StockController implements Serializable{
         this.producto = producto;
     }
 
-    public Pedido getPedido() {
-        return pedido;
+    public List<Producto> getProductos() {
+        return productos;
     }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
-
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
-
-    public Estadopedido getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estadopedido estado) {
-        this.estado = estado;
-    }
-
-    public List<Pedido> pedidosLista(){
-        List<Pedido> lista= new LinkedList<>();
-        
-        try {
-            Estadopedido e = new Estadopedido(14);
-            lista = pedidoLocal.traerPed(e);
-            for (Pedido pedido1 : lista){
-                
-            }
-        } catch (Exception e) {
-        }
-        return lista;
-    }
-    
-    
 }

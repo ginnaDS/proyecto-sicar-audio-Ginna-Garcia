@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+        <ui:composition template="../WEB-INF/protegido/clienteTemplate.xhtml">
+            <ui:define name="content">
+                <h1>Cambiar contraseña</h1>
+                <h:form>
+                    
+                    <h:outputLabel value="Nueva contraseña" id="contrasenia"/>
+                    <p:password value="#{registroUsuario.usuario.contrasenia}" id="contrasenia" validatorMessage="Las contraseñas no coinciden"
+                                    match="contrasenia2" feedback="true" promptLabel="Ingrese una clave" required="true"/>
+                    <h:outputLabel value="Confirmar contraseña" id="contrasenia" />
+                    <p:password class="form-control" id="contrasenia2" required="true"/>
+                                <p:message for="contrasenia2"/>
+                                <p:message for="contrasenia"/>
+                                
+                                
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

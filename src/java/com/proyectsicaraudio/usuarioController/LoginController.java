@@ -83,20 +83,6 @@ public class LoginController implements Serializable{
               
              }
          } catch (Exception e) {
-             try{
-                 for (int i = 0; i < 5; i++) {
-                     if (i==0) {
-                       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Por favor","ingrese su contraseña"));
-                     }
-                     if (i==5) {
-                       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"",""));
-                }
-                 }
-                     
-                 }
-             catch (Exception ex){
-                 
-             }
              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Aviso"),("Error ")+e.getMessage()));
     }
     

@@ -7,7 +7,9 @@ package com.proyectsicaraudio.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,12 +21,14 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -53,7 +57,7 @@ public class Cita implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Lob
-    @Size(min = 10, max = 65535)
+    @Size(min = 1, max = 65535)
     @Column(name = "motivo")
     private String motivo;
     @JoinColumn(name = "idCarro", referencedColumnName = "idCarro")
@@ -65,6 +69,8 @@ public class Cita implements Serializable {
     @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario idUsuario;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCita", fetch = FetchType.LAZY)
+    private List<FacturaInstalacion> facturaInstalacionList;
 
     public Cita() {
     }
@@ -125,6 +131,15 @@ public class Cita implements Serializable {
 
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    @XmlTransient
+    public List<FacturaInstalacion> getFacturaInstalacionList() {
+        return facturaInstalacionList;
+    }
+
+    public void setFacturaInstalacionList(List<FacturaInstalacion> facturaInstalacionList) {
+        this.facturaInstalacionList = facturaInstalacionList;
     }
 
     @Override

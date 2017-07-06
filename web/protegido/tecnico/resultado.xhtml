@@ -20,20 +20,54 @@
 
 
                     <h:form>
-                        <h1><h:outputText value="Resultado instalación"/></h1>
-                        <h:panelGrid columns="2">
-                            <p:outputLabel value="Codigo cita:" for="idCita" />
-                            <p:selectOneMenu id="idCita" value="#{instalacionController.cita.idCita}" required="true">
-                               <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
-                               <f:selectItems value="#{instalacionController.citas}" var="cit" itemLabel="#{cit.idCita}" itemValue="#{cit.idCita}"/>
-                            </p:selectOneMenu>
-                            <p:outputLabel value="Resultado:" for="resultado" />
-                            <p:inputTextarea rows="4" cols="30" id="resultado" value="#{instalacionController.inta.resultado}" title="En este campo se pondra un informe detallado del resultado de la instalación" required="true"/>
-                            <h:column/> 
-                            <p:commandButton value="Registrar" actionListener="#{instalacionController.registrarInsta()}"/>
-                        </h:panelGrid>
+                        <center><h1><h:outputText value="Instalaciones realizadas"/></h1></center>
+                        <p:dataTable value="#{instalacionController.instalaciones1}" paginator="true" rows="5" var="item">
+                             <f:facet name="{Exporters}">
+                                <p:commandLink>
+                                    <p:graphicImage name="/demo/images/excel.png" width="24"/>
+                                    <p:dataExporter type="xls" target="tbl" fileName="Citas" />
+                                </p:commandLink>
+
+                                <p:commandLink>
+                                    <p:graphicImage name="/demo/images/pdf.png" width="24"/>
+                                    <p:dataExporter type="pdf" target="tbl" fileName="Citas"/>
+                                </p:commandLink>
+
+                            </f:facet>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Fecha"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fecha}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Resultado"/>
+                                </f:facet>
+                                <h:outputText value="#{item.resultado}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="IdCita"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCita.idCita}"/>
+
+                            </p:column>
+                        </p:dataTable>
+                         <p:commandLink>
+                            <p:graphicImage name="imagenes/excel.jpg" />
+                            <p:dataExporter type="xls" target="tbl" fileName="Citas" pageOnly="true"/>
+                        </p:commandLink>
+
+                        <p:commandLink>
+                            <p:graphicImage name="imagenes/pdf.jpg" />
+                            <p:dataExporter type="pdf" target="tbl" fileName="Citas" pageOnly="true" />
+                        </p:commandLink>
                     </h:form>
                 </f:view>
+
 
             </ui:define>
 

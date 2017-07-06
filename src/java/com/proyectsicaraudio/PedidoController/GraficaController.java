@@ -59,7 +59,7 @@ private BarChartModel initBarModel() throws ParseException {
         ChartSeries boys = new ChartSeries();
         boys.setLabel("Prueba");
         for (Prefactura v : prefl.findAll()) {
-            DateFormat dateFormat = new SimpleDateFormat("YYYY");
+            DateFormat dateFormat = new SimpleDateFormat("DDDD/MMMM/YYYY");
             Date date = new Date();
             String nuevo = dateFormat.format(v.getFechaEnvio());
             date = dateFormat.parse(nuevo);

@@ -21,6 +21,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -96,19 +97,17 @@ public class VehiculoController implements Serializable {
     }
     
      public void registrarVehiculo(){
+         RequestContext context = RequestContext.getCurrentInstance();
         try {  
-            
             Usuario u=(Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("us");
-            System.out.println(u.getIdUsuario());
             carro.setIdMarca(marca);
             carro.setIdUsuario(u);
             carroLocal.create(carro);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Aviso"),
-            ("NuevoVehiculo")));
+            context.execute("swal('Acabas','de registrar un nuevo vehiculo','success')");
         } catch (Exception e) {
-            System.out.println("Error: "+e.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,("Error"),
-            ("NoSeHaRegitrado")));
+            System.out.println("Error: "+e.getMessage()+e.getCause().getMessage());
+            context.execute("swal('Ya existe','un vehiculo con esta placa','warning')");
+            
         }
     }
      

@@ -39,23 +39,15 @@
                                  
                                    
                                 </p:column>
-                                
-                              
-                           
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Modificar"/>
                                 </f:facet>
+                                 <p:commandButton icon="ui-icon-table" update=":eliminarCita" title="Aplazar" actionListener="#{citaControl.eliminar(cima)}"/>
+                                <p:commandButton icon="ui-icon-close" update=":eliminarCita" title="Cancelar" actionListener="#{citaControl.cancelarcita(cima)}"/>
                                 <p:commandButton onclick="PF('modificarp').show()" title="Modificar info. cita" update=":lista" actionListener="#{citControl.citat(cima)}" icon="ui-icon-pencil"/>
-                            </p:column>
-                             <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="motivo"/>
-                                </f:facet>
-                                 <p:commandButton icon="ui-icon-trash" update=":eliminarCita" title="Eliminar" actionListener="#{citaControl.eliminar(cima)}"/>
                                  
-                                   
-                                </p:column>
+                            </p:column>
                             
                             
                         </p:dataTable>

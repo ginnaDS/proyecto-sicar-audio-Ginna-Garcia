@@ -6,10 +6,12 @@
 package com.proyectsicaraudio.InstalacionController;
 
 import com.proyectsicaraudio.EJB.CitaFacadeLocal;
+import com.proyectsicaraudio.EJB.EstadocitaFacadeLocal;
 import com.proyectsicaraudio.EJB.InstalacionFacadeLocal;
 import com.proyectsicaraudio.EJB.RolFacadeLocal;
 import com.proyectsicaraudio.EJB.UsuarioFacadeLocal;
 import com.proyectsicaraudio.model.Cita;
+import com.proyectsicaraudio.model.Estadocita;
 import com.proyectsicaraudio.model.Instalacion;
 import com.proyectsicaraudio.model.Rol;
 import com.proyectsicaraudio.model.Usuario;
@@ -24,6 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -40,18 +43,22 @@ public class instalacionController implements Serializable {
     private RolFacadeLocal rolLocal;
     @EJB
     private CitaFacadeLocal citaLocal;
+    @EJB
+    private EstadocitaFacadeLocal estadoLocal;
     @Inject
     private Usuario usuario;
     private List<Usuario> usuarios;
     @Inject
     private Instalacion inta;
     private List<Instalacion> instalaciones;
+    private List<Instalacion> instalaciones1;
     @Inject
     private Cita cita;
     private List<Cita> citas;
     @Inject
     private Rol rol;
-    
+    @Inject
+    private Estadocita estado;
     private FacesContext facesContext;
     private ResourceBundle rb;
 
@@ -63,6 +70,13 @@ public class instalacionController implements Serializable {
         this.instalaciones = instalaciones;
     }
 
+    public Estadocita getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estadocita estado) {
+        this.estado = estado;
+    }
 
     public Rol getRol() {
         return rol;
@@ -111,15 +125,50 @@ public class instalacionController implements Serializable {
     public void setCitas(List<Cita> citas) {
         this.citas = citas;
     }
+
+    public List<Instalacion> getInstalaciones1() {
+        return instalaciones1;
+    }
+
+    public void setInstalaciones1(List<Instalacion> instalaciones1) {
+        this.instalaciones1 = instalaciones1;
+    }
+    
     @PostConstruct
     public void init(){
         instalaciones = instalacionLocal.findAll();
+        instalaciones1 = instalacionLocal.instalacionesTecnico();
         usuarios = usuarioLocal.findAll();
         citas = citaLocal.citasTecnico(); 
         facesContext = FacesContext.getCurrentInstance();
         rb =facesContext.getApplication().getResourceBundle(facesContext, "msjIns");
     }
     
+    public void actualizar(Cita item) {
+        RequestContext context = RequestContext.getCurrentInstance();
+        try {
+            cita=citaLocal.find(item.getIdCita());
+            cita.setIdEstadoCi(estadoLocal.find(4));
+            citaLocal.edit(cita);
+            context.execute("swal('Actualizacion','Exitosa','success')");            
+        } catch (Exception e) {
+            context.execute("swal('Lo sentimos','Intentalo nuevamente','error')");
+            System.out.println(e.getMessage());
+        }        
+    }
+    
+    public Cita mostrar(Cita citas){
+        return citas;
+    }
+    
+    public void capturarCita(Cita c){
+        cita=c;
+    }
+    
+    public void editar(){
+        actualizar(cita);
+        registrarInsta();
+    }
     public void registrarInsta(){
         try {
             Usuario u=(Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("us");
@@ -128,8 +177,10 @@ public class instalacionController implements Serializable {
             inta.setFecha(fecha);
             System.out.println("fecha "+inta.getFecha());
             Cita ct = citaLocal.find(cita.getIdCita());
+            System.out.println("id cita "+ct.getIdCita());
             inta.setIdCita(ct);
             instalacionLocal.create(inta);
+            
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,("Aviso"),
             ("RegistroExitoso")));
         } catch (Exception e) {

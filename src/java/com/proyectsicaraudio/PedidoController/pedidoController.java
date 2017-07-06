@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -53,7 +53,9 @@ public class pedidoController implements Serializable {
     private Prefactura prefactura;
     @Inject
     private Producto producto;
-
+    @Inject
+    private Pedido pedido;
+    private List<Pedido> pedidos;
     @Inject
     private Cliente cliente;
 
@@ -69,6 +71,22 @@ public class pedidoController implements Serializable {
 
     private List<Producto> productos;
     private List<Detallespedido> detallespedido;
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
 
     public PrefacturaFacadeLocal getPrefacturaLocal() {
         return prefacturaLocal;
@@ -148,6 +166,7 @@ public class pedidoController implements Serializable {
 
     @PostConstruct
     public void init() {
+        pedidos = pedidoFl.findAll();
         productos = productoFl.findAll();
         productosSel = new LinkedList<>();
         detallespedido = new LinkedList<>();
@@ -165,7 +184,7 @@ public class pedidoController implements Serializable {
     //Se le asigno este metodo tambien a el boton calcular a manera de actionListener
     //Usando la propiedad update que pertenece a primefaces el cual usa ajax se actualizo el formulario 
     public Double calcular() {
-
+        RequestContext context = RequestContext.getCurrentInstance();
         Double precio = 0.0;
         Producto p;
         try {
@@ -173,6 +192,9 @@ public class pedidoController implements Serializable {
             detallePedido.setIdProducto(p);
             Double precioP = detallePedido.getIdProducto().getPrecio();
             int cantidad = detallePedido.getCantidadProducto();
+            if (cantidad <= 0) {
+                 context.execute("swal('Seleccione',' al menos 1 producto','warning')");
+            }
 
             precio = precioP * cantidad;
         } catch (Exception e) {
@@ -183,10 +205,22 @@ public class pedidoController implements Serializable {
     }
 
     public void añadir() {
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
         Producto p;
         p = productoFl.find(producto.getIdProducto());
         System.out.println(producto.getIdProducto() + "///////////////:............");
+        boolean comp=true;
+        for (Detallespedido ep : detallespedido) {
+            if (Objects.equals(ep.getIdProducto().getIdProducto(), p.getIdProducto())) {
+                ep.setCantidadProducto(ep.getCantidadProducto()+detallePedido.getCantidadProducto());
+                System.out.println("Se suuuuuuumaa :v");
+                comp=false;
+            }
+        }
+        if(comp){
         productosSel.add(p);
+            System.out.println("Se añaaadèèèè :V");
+        }
         System.out.println(productosSel.size());
     }
 
@@ -241,7 +275,6 @@ public class pedidoController implements Serializable {
             pedido.setIdCliente(cliente);
             pedidoFl.create(pedido);
             registrarPre(fecha, pedido);
-            descontarCantidad();
             detallespedido = new ArrayList();
             context.execute("swal('Registro exitoso','Tu pedido esta en proceso','success')");
         } catch (Exception e) {
@@ -272,13 +305,25 @@ public class pedidoController implements Serializable {
         }
     }
 
+    public boolean comp() {
+        for (Pedido ped1 : pedidos) {
+            if (ped1.getIdEstadoPe().getIdEstadoPe() == 14) {
+                return false;
+            }
+
+        }
+        return true;
+    }
+
     public void descontarCantidad() {
         try {
-            for (Detallespedido dp: detallespedido) {
-                for (Producto p : productos) {
-                    if (dp.getIdProducto().getIdProducto().intValue()==p.getIdProducto()) {
-                        p.setCantidad(p.getCantidad()-dp.getCantidadProducto());
-                         productoFl.edit(p);
+            if (comp()) {
+                for (Detallespedido dp : detallespedido) {
+                    for (Producto p : productos) {
+                        if (dp.getIdProducto().getIdProducto().intValue() == p.getIdProducto()) {
+                            p.setCantidad(p.getCantidad() - dp.getCantidadProducto());
+                            productoFl.edit(p);
+                        }
                     }
                 }
             }

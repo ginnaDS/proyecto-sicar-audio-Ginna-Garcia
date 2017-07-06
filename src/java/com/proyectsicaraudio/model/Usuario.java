@@ -52,6 +52,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByFechaNacimiento", query = "SELECT u FROM Usuario u WHERE u.fechaNacimiento = :fechaNacimiento")})
 public class Usuario implements Serializable {
 
+    @OneToMany(mappedBy = "idUsuario", fetch = FetchType.LAZY)
+    private List<Cita> citaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.LAZY)
+    private List<Cliente> clienteList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.LAZY)
     private List<Carro> carroList;
 
@@ -281,6 +286,24 @@ public class Usuario implements Serializable {
 
     public void setCarroList(List<Carro> carroList) {
         this.carroList = carroList;
+    }
+
+    @XmlTransient
+    public List<Cita> getCitaList() {
+        return citaList;
+    }
+
+    public void setCitaList(List<Cita> citaList) {
+        this.citaList = citaList;
+    }
+
+    @XmlTransient
+    public List<Cliente> getClienteList() {
+        return clienteList;
+    }
+
+    public void setClienteList(List<Cliente> clienteList) {
+        this.clienteList = clienteList;
     }
     
 }

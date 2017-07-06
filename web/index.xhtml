@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Sicar Audio</title>
         <link href="resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -149,8 +150,8 @@
                                     <h:message for="contrasenia"/>
                                     <br/>
                                     <br/>
-                                <h:commandButton value="Iniciar Sesion" action="#{loginController.iniciarSesion()}"/>
-                                 <h:button value="Registrate" outcome="Registrar.xhtml"/>
+                                    <h:commandButton class="btn-info" value="Iniciar Sesion" action="#{loginController.iniciarSesion()}"/>
+                                    <h:button value="Registrate" class="btn-success" outcome="Registrar.xhtml"/>
                                 <h:column/>
                                 <h:column/>
                                 </h:panelGrid>
@@ -166,83 +167,25 @@
             <section id="products" class="products  content-section">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-4">
-                            <img src="resources/imagenes/logo.png" class="center-block img-responsive"/>
-                        </div><!-- /.col-md-4 -->
-
                         <div class="col-md-8">
                             <div class="products-container">
 
                                 <div class="col-md-12">
                                     <h2>¿Por que Milenium audio es el mejor?</h2>
-                                    <h3 class="caption white" >Somos los mejores por que nos gusta que quienes nos eligen sean mas 
-                                    que clientes, sean nuestros amigos, y a los amigos se les atiende con mucho cariño</h3>
-                                </div><!-- /.col-md-12 -->
+                                </div>
+                                <f:view>
 
-                                <div class="col-md-6 product-item wow fadeIn" data-wow-offset="10">
-                                    <div class="media-left">
-                                        <span class="icon"><i class="fa fa-arrows-alt fa-3x"></i></span>
-                                    </div><!-- /.media-left -->
-                                    <div class="media-body">
-                                        <h3 class="media-heading">Responsive Layout</h3>
-                                        <p>Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
-                                    </div><!-- /.media-body -->
-                                </div><!-- /.col-md-6 -->
 
-                                <div class="col-md-6 product-item wow fadeIn" data-wow-offset="10">
-                                    <div class="media-left">
-                                        <span class="icon"><i class="fa fa-eye fa-3x"></i></span>
-                                    </div><!-- /.media-left -->
-                                    <div class="media-body">
-                                        <h3 class="media-heading">Retina Ready Graphics</h3>
-                                        <p>Looks beautiful &amp; ultra-sharp on Retina Displays with Retina Icons, Fonts &amp; Images.</p>
-                                    </div><!-- /.media-body -->
-                                </div><!-- /.col-md-6 -->
+                                    <h:form>
+                                       
+                                        <h:graphicImage library="eventos" name="#{eventoController.evento.poster}" width="200px"/>
+                                            
+                                    </h:form>
+                                </f:view>
 
-                                <div class="col-md-6 product-item wow fadeIn" data-wow-offset="10">
-                                    <div class="media-left">
-                                        <span class="icon"><i class="fa fa-arrows-v fa-3x"></i></span>
-                                    </div><!-- /.media-left -->
-                                    <div class="media-body">
-                                        <h3 class="media-heading">Parallax Sections</h3>
-                                        <p>Comes with Parallax effect script so you can add Parallax effect to any section of the website.</p>
-                                    </div><!-- /.media-body -->
-                                </div><!-- /.col-md-6 -->
-
-                                <div class="col-md-6 product-item wow fadeIn" data-wow-offset="10">
-                                    <div class="media-left">
-                                        <span class="icon"><i class="fa fa-video-camera fa-3x"></i></span>
-                                    </div><!-- /.media-left -->
-                                    <div class="media-body">
-                                        <h3 class="media-heading">YouTube &amp; HTML5 Background Video</h3>
-                                        <p>Choose to display either YouTube or HTML5 as background video.</p>
-                                    </div><!-- /.media-body -->
-                                </div><!-- /.col-md-6 -->
-
-                                <div class="col-md-6 product-item wow fadeIn" data-wow-offset="10">
-                                    <div class="media-left">
-                                        <span class="icon"><i class="fa fa-toggle-on fa-3x"></i></span>
-                                    </div><!-- /.media-left -->
-                                    <div class="media-body">
-                                        <h3 class="media-heading">Color Options</h3>
-                                        <p>Choose a color that suits your brand &amp; change the color of the template with just one CSS file.</p>
-                                    </div><!-- /.media-body -->
-                                </div><!-- /.col-md-6 -->
-
-                                <div class="col-md-6 product-item wow fadeIn" data-wow-offset="10">
-                                    <div class="media-left">
-                                        <span class="icon"><i class="fa fa-envelope-o fa-3x"></i></span>
-                                    </div><!-- /.media-left -->
-                                    <div class="media-body">
-                                        <h3 class="media-heading">Contact form</h3>
-                                        <p>Fully functional PHP contact form, with user input validation.</p>
-                                    </div><!-- /.media-body -->
-                                </div><!-- /.col-md-6 -->
-
-                            </div><!-- /.products-container -->
-                        </div><!-- /.col-md-8 -->
-
-                    </div><!-- /.row -->
+                            </div>
+                        </div>
+                    </div>
                 </div><!-- /.container -->
             </section><!-- /.products -->
 
@@ -458,83 +401,15 @@
                             <br/>Con nuestra ayuda podran ser capacez de impresionar y llamar la atencion de una manera divertida, moderna, atrevida y lo mejor aun encontrar un pasatiempo sano.</h3>
                         </div><!-- /.col-md-12-->
                     </div><!-- /.row -->
-
+<center>
                     <div class="row client-slider">
                         <div class="item col-xs-4 col-md-2 i">
-                            <a href="#" title="#">
-                                <img src="resources/imagenes/sony-logo.png" class="img-responsive"/>
-                            </a>
-                        </div><!-- /.col-xs-4 -->
-
-                        <div class="item col-xs-4 col-md-2 i">
-                            <a href="#" title="#">
-                                <img src="resources/imagenes/nike-logo.png" class="img-responsive"/>
-                            </a>
-                        </div><!-- /.col-xs-4 -->
-
-                        <div class="item col-xs-4 col-md-2 i">
-                            <a href="#" title="#">
-                                <img src="resources/imagenes/paramount-logo.png" class="img-responsive"/>
-                            </a>
-                        </div><!-- /.col-xs-4 -->
-
-                        <div class="item col-xs-4 col-md-2 i">
-                            <a href="#" title="#">
-                                <img src="resources/imagenes/microsoft-logo.png" class="img-responsive"/>
-                            </a>
-                        </div><!-- /.col-xs-4 -->
-
-                        <div class="item col-xs-4 col-md-2 i">
-                            <a href="#" title="#">
-                                <img src="resources/imagenes/citibank-logo.png" class="img-responsive"/>
-                            </a>
-                        </div><!-- /.col-xs-4 -->
-
-                        <div class="item col-xs-4 col-md-2 i">
-                            <a href="#" title="#">
-                                <img src="resources/imagenes/fedex-logo.png" class="img-responsive"/>
-                            </a>
-                        </div><!-- /.col-xs-4 -->
-
-                        <div class="item col-xs-4 col-md-2 i">
-                            <a href="#" title="#">
-                                <img src="resources/imagenes/sony-logo.png" class="img-responsive"/>
-                            </a>
-                        </div><!-- /.col-xs-4 -->
-
-                        <div class="item col-xs-4 col-md-2 i">
-                            <a href="#" title="#">
-                                <img src="resources/imagenes/nike-logo.png" class="img-responsive"/>
-                            </a>
-                        </div><!-- /.col-xs-4 -->
-                        
-                        <div class="item col-xs-4 col-md-2 i">
-                            <a href="#" title="#">
-                                <img src="resources/imagenes/paramount-logo.png" class="img-responsive"/>
-                            </a>
-                        </div><!-- /.col-xs-4 -->
-
-                        <div class="item col-xs-4 col-md-2 i">
-                            <a href="#" title="#">
-                                <img src="resources/imagenes/microsoft-logo.png" class="img-responsive"/>
-                            </a>
-                        </div><!-- /.col-xs-4 -->
-
-                        <div class="item col-xs-4 col-md-2 i">
-                            <a href="#" title="#">
-                                <img src="resources/imagenes/citibank-logo.png" class="img-responsive"/>
-                            </a>
-                        </div><!-- /.col-xs-4 -->
-                        
-                        <div class="item col-xs-4 col-md-2 i">
-                            <a href="#" title="#">
-                                <img src="resources/imagenes/fedex-logo.png" class="img-responsive"/>
-                            </a>
-                        </div><!-- /.col-xs-4 -->
-
+                           
+                            <img src="resources/imagenes/personas.jpg" alt=""/>
                     </div><!-- /.row -->
-
                 </div><!-- /.container -->
+</center>
+                </div>
             </section><!-- /.our-clients -->
 
 
@@ -651,7 +526,7 @@
                         </div><!-- /.contact-form -->
 
                         <div class="col-md-4 contact-address">
-                            <h3>Nuestra dirección</h3>
+                            <h3>Dirección</h3>
                             <p><i class="fa fa-map-marker fa-fw"></i> Ac 72 ,
                                 <br />Nro 107-38,
                                 <br />Bogotá</p>
